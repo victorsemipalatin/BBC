@@ -625,6 +625,11 @@ CMakeFiles/BBC.dir/BBC.cc.o: /home/e/BBC/BBC.cc \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trd.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trap.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSolid.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SubtractionSolid.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DisplacedSolid.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.icc \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4PVPlacement.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NistManager.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NistElementBuilder.hh \

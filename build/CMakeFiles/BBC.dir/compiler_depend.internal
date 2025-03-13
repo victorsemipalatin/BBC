@@ -93,6 +93,8 @@ CMakeFiles/BBC.dir/BBC.cc.o
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Backtrace.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BlockingList.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BlockingList.icc
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4CSGSolid.hh
@@ -109,6 +111,7 @@ CMakeFiles/BBC.dir/BBC.cc.o
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DataVector.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DensityEffectCalculator.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DigiFilterFactories.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DisplacedSolid.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DynamicParticle.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DynamicParticle.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ElectronOccupancy.hh
@@ -271,6 +274,7 @@ CMakeFiles/BBC.dir/BBC.cc.o
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SteppingManager.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.icc
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SubtractionSolid.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SurfBits.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SystemOfUnits.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THitsCollection.hh
@@ -1130,13 +1134,18 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/ThreeVector.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/TwoVector.h
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/TwoVector.icc
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AffineTransform.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AffineTransform.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AutoLock.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4CSGSolid.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DataVector.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DataVector.icc
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DensityEffectCalculator.hh
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DisplacedSolid.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Element.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ElementTable.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ElementVector.hh
@@ -1180,6 +1189,7 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SandiaTable.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.icc
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SubtractionSolid.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SystemOfUnits.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Threading.hh
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ThreeVector.hh

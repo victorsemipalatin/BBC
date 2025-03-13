@@ -27,9 +27,20 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     G4LogicalVolume *logicTile1 = new G4LogicalVolume(tile_1, polystyrene, "logicTile1");
     G4VPhysicalVolume *physTile1 = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.25 * m), logicTile1, "physTile1", logicWorld, false, 0, true);
 
-    G4Trd *tile_2_1 = new G4Trd("Tile21", (61.96 + 0.4) / 2 * mm, 84.32 / 2 * mm, 12.5 / 2 * mm, 12.5 / 2 * mm, 55.21 / 2 * mm);
-    G4LogicalVolume *logicTile21 = new G4LogicalVolume(tile_2_1, polystyrene, "logicTile21");
-    G4VPhysicalVolume *physTile21 = new G4PVPlacement(0, G4ThreeVector(0., 0., (251 + 55.71) * mm), logicTile21, "physTile21", logicWorld, false, 0, true);
+    G4Trd *trapezoid_2 = new G4Trd("Trapezoid2", (61.96 + 0.4) / 2 * mm, 84.32 / 2 * mm, 12.5 / 2 * mm, 12.5 / 2 * mm, 55.21 / 2 * mm);
+    // G4LogicalVolume *logicTile21 = new G4LogicalVolume(tile_2_1, polystyrene, "logicTile21");
+    // G4VPhysicalVolume *physTile21 = new G4PVPlacement(0, G4ThreeVector(0., 0., (251 + 55.71) * mm), logicTile21, "physTile21", logicWorld, false, 0, true);
+
+    G4Box *subs_box_2 = new G4Box("SubsBox2", 1. / 2 * mm, 12.5 / 2 * m, 55.21 / 2 * m);
+    G4VSolid *tile_2 = new G4SubtractionSolid("Tile2", trapezoid_2, subs_box_2, nullptr, G4ThreeVector(0., 0., 0.));
+    G4LogicalVolume *logicTile2 = new G4LogicalVolume(tile_2, polystyrene, "logicTile2");
+    G4VPhysicalVolume *physTile2 = new G4PVPlacement(0, G4ThreeVector(0., 0., (251 + 55.71) * mm), logicTile2, "physTile2", logicWorld, false, 0, true);
+
+    G4Trd *trapezoid_3 = new G4Trd("Trapezoid3", (84.32 + 0.4) / 2 * mm, 106.28 / 2 * mm, 12.5 / 2 * mm, 12.5 / 2 * mm, 55.21 / 2 * mm);
+    G4Box *subs_box_3 = new G4Box("SubsBox3", 1. / 2 * mm, 12.5 / 2 * m, 55.21 / 2 * m);
+    G4VSolid *tile_3 = new G4SubtractionSolid("Tile3", trapezoid_3, subs_box_3, nullptr, G4ThreeVector(0., 0., 0.));
+    G4LogicalVolume *logicTile3 = new G4LogicalVolume(tile_3, polystyrene, "logicTile3");
+    G4VPhysicalVolume *physTile3 = new G4PVPlacement(0, G4ThreeVector(0., 0., (252 + 2 * 55.71) * mm), logicTile3, "physTile3", logicWorld, false, 0, true);
 
     return physWorld;
 }

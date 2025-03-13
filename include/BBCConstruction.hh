@@ -8,6 +8,8 @@
 #include "G4Box.hh"
 #include "G4Trd.hh"
 #include "G4Trap.hh"
+#include "G4VSolid.hh"
+#include "G4SubtractionSolid.hh"
 #include "G4PVPlacement.hh"
 #include "G4NistManager.hh"
 #include "G4SystemOfUnits.hh"
