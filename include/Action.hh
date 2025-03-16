@@ -1,7 +1,6 @@
 #ifndef ACTION_HH
 #define ACTION_HH
 
-#include <iostream>
 #include "G4VUserActionInitialization.hh"
 #include "Generator.hh"
 

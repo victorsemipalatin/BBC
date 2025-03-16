@@ -8,16 +8,15 @@ PrimaryGenerator::PrimaryGenerator(){
 
 PrimaryGenerator::~PrimaryGenerator(){
     delete ParticleGun;
-    std::cout << "PrimaryGenerator killed" << std::endl;
+    G4cout << "PrimaryGenerator killed" << std::endl;
 }
 
 
 void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-    G4String proton = "proton";
     G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
 
-    G4ThreeVector position(0., 0., 0.);
+    G4ThreeVector position(0., 150. * mm, -1000. * mm);
     G4ThreeVector momentum(0., 0., 1.);
 
     ParticleGun -> SetParticlePosition(position);
