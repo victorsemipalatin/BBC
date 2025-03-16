@@ -1,7 +1,7 @@
 #ifndef CONSTRUCTION_HH
 #define CINSTRUCTION_HH
 
-#include <iostream>
+#include <cmath>
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
@@ -13,6 +13,9 @@
 #include "G4PVPlacement.hh"
 #include "G4NistManager.hh"
 #include "G4SystemOfUnits.hh"
+
+
+#define PI 3.14159265
 
 
 class BBCConstruction: public G4VUserDetectorConstruction{
