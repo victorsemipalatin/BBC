@@ -1104,15 +1104,62 @@ CMakeFiles/BBC.dir/src/Action.cc.o: /home/e/BBC/src/Action.cc \
 
 CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc \
   /home/e/BBC/include/BBCConstruction.hh \
+  /home/e/BBC/include/CADMesh.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/Normal3D.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/Point3D.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/Transform3D.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/Transform3D.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Geometry/Vector3D.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/DualRand.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/JamesRandom.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/MTwistEngine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/MixMaxRng.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBinomial.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBinomial.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBit.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBit.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBreitWigner.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandBreitWigner.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandChiSquare.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandChiSquare.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandExpZiggurat.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandExponential.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandExponential.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandFlat.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandFlat.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGamma.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGamma.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGauss.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGauss.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGaussQ.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGaussQ.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGaussZiggurat.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGeneral.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandGeneral.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandLandau.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandLandau.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandPoisson.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandPoisson.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandPoissonQ.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandPoissonQ.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandStudentT.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandStudentT.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/Random.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/Random.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandomEngine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RandomEngine.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/Randomize.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RanecuEngine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/Ranlux64Engine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RanluxEngine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RanluxppEngine.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Random/RanshiEngine.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Utility/defs.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Utility/memory.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Utility/thread_local.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/AxisAngle.h \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/AxisAngle.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/LorentzVector.h \
@@ -1133,6 +1180,11 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/CLHEP/Vector/TwoVector.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AffineTransform.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AffineTransform.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ApplicationState.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyTriplet.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyTriplet.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyVolume.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyVolume.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AutoLock.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.icc \
@@ -1187,7 +1239,10 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4String.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SubtractionSolid.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SurfBits.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SystemOfUnits.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TessellatedSolid.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Tet.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Threading.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ThreeVector.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Transform3D.hh \
@@ -1195,8 +1250,13 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trap.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trd.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trd.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TriangularFacet.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TwoVector.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Types.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4UIcommand.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4UIparameter.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4UItokenNum.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VFacet.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VPhysicalVolume.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VPhysicalVolume.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSolid.hh \
@@ -1204,18 +1264,23 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VUserDetectorConstruction.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Visible.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Visible.icc \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Voxelizer.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Voxelizer.icc \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ios.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/HepPolyhedron.h \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/Randomize.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/geomdefs.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/geomwdefs.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/globals.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/templates.hh \
   /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tls.hh \
+  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/windefs.hh \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
   /usr/include/c++/13/algorithm \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
@@ -1295,8 +1360,10 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
+  /usr/include/c++/13/bits/stl_multiset.h \
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_set.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_tree.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -1319,6 +1386,7 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /usr/include/c++/13/climits \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/complex \
   /usr/include/c++/13/condition_variable \
   /usr/include/c++/13/cstddef \
@@ -1359,6 +1427,7 @@ CMakeFiles/BBC.dir/src/BBCConstruction.cc.o: /home/e/BBC/src/BBCConstruction.cc 
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
+  /usr/include/c++/13/set \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
@@ -2241,6 +2310,12 @@ CMakeFiles/BBC.dir/src/Generator.cc.o: /home/e/BBC/src/Generator.cc \
 
 /home/e/BBC/src/Generator.cc:
 
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Tet.hh:
+
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyVolume.hh:
+
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyTriplet.icc:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
@@ -2484,6 +2559,8 @@ CMakeFiles/BBC.dir/src/Generator.cc.o: /home/e/BBC/src/Generator.cc \
 /usr/include/c++/13/new:
 
 /usr/include/c++/13/mutex:
+
+/home/e/BBC/include/CADMesh.hh:
 
 /usr/include/c++/13/memory:
 
@@ -2745,6 +2822,8 @@ CMakeFiles/BBC.dir/src/Generator.cc.o: /home/e/BBC/src/Generator.cc \
 
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4PrimaryTransformer.hh:
 
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TriangularFacet.hh:
+
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4GeomTypes.hh:
 
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4MCCIndexConversionTable.hh:
@@ -2752,6 +2831,8 @@ CMakeFiles/BBC.dir/src/Generator.cc.o: /home/e/BBC/src/Generator.cc \
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalVolume.icc:
 
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Plane3D.hh:
+
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyTriplet.hh:
 
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VModelFactory.hh:
 
@@ -3362,6 +3443,8 @@ CMakeFiles/BBC.dir/src/Generator.cc.o: /home/e/BBC/src/Generator.cc \
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4PhysicsVector.icc:
 
 /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TouchableHistoryHandle.hh:
+
+/home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AssemblyVolume.icc:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 

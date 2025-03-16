@@ -32,13 +32,13 @@
 /vis/viewer/set/hiddenMarker false
 
 #Прорисовка осей: x=red, y=green, z=blue.
-/vis/scene/add/axes  0 0 0 0.2
+#/vis/scene/add/axes  0 0 0 0.2
 #Дата
-/vis/scene/add/date
+#/vis/scene/add/date
 #eventID
 /vis/scene/add/eventID
 #logo GEANT4
-/vis/scene/add/logo2D
+#/vis/scene/add/logo2D
 
 #Визуализация до запуска частицы
 /vis/viewer/flush
