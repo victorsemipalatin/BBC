@@ -47,14 +47,17 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     G4Material* polystyrene = nist -> FindOrBuildMaterial("G4_POLYSTYRENE"); // пластиковый сцинтиллятор
     auto mptPolystyrene = new G4MaterialPropertiesTable();
     G4double energy[2] = {1.239841939 * eV / 0.9, 1.239841939 * eV / 0.2};
-    G4double reflectionIndexPolystyrene[2] = {1.7, 1.7}; // нужно поменять 
+    G4double reflectionIndexPolystyrene[2] = {1.56, 1.56}; // чужой нирс
     G4double fraction[2] = {1.0, 1.0}; // нужно поменять 
     mptPolystyrene -> AddProperty("RINDEX", energy, reflectionIndexPolystyrene, 2);
     mptPolystyrene -> AddProperty("SCINTILLATIONCOMPONENT1", energy, fraction, 2);
-    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD", 38. / keV); // нужно поменять
-    mptPolystyrene -> AddConstProperty("RESOLUTIONSCALE", 1.0); // нужно узнать, что это
-    mptPolystyrene -> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 250 * ns); // нужно исправить
-    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD1", 1.); // нужно узнать, что это
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD", 1200. / MeV); // чужой нирс, световыход на единицу энергопотерь
+    mptPolystyrene -> AddConstProperty("RESOLUTIONSCALE", 1.0); // доля энергетического спектра, участвующего в генерации
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 2.4 * ns); // Время высвечивания быстрой компоненты сцинтилляционной вспышки
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONTIMECONSTANT2", 5. * ns); // Время высвечивания медленной компоненты сцинтилляционной вспышки
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD1", 1.); // доля быстрой компоненты
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD2", 0.); // доля медленной компоненты
+    polystyrene -> GetIonisation() -> SetBirksConstant(0.126 * mm / MeV); // постоянная Биркса
     polystyrene -> SetMaterialPropertiesTable(mptPolystyrene);
 
     // auto mptWorld = new G4MaterialPropertiesTable();
