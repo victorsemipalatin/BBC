@@ -1,5 +1,5 @@
 #include "BBCConstruction.hh"
-#include "CADMesh.hh" // ковертер
+#include "CADMesh.hh" // конвертер
 
 
 
@@ -44,18 +44,18 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // G4LogicalVolume *logicTile3 = new G4LogicalVolume(tile_3, polystyrene, "logicTile3");
     // G4VPhysicalVolume *physTile3 = new G4PVPlacement(0, G4ThreeVector(0., 0., (252 + 2 * 55.71) * mm), logicTile3, "physTile3", logicWorld, false, 0, true);
 
-    G4Material* polystyrene = nist -> FindOrBuildMaterial("G4_POLYSTYRENE"); // пластиковый сцинтиллятор
+    G4Material* polystyrene = nist -> FindOrBuildMaterial("G4_POLYSTYRENE", 1.045 * g / cm3); // пластиковый сцинтиллятор
     auto mptPolystyrene = new G4MaterialPropertiesTable();
     G4double energy[2] = {1.239841939 * eV / 0.9, 1.239841939 * eV / 0.2};
-    G4double reflectionIndexPolystyrene[2] = {1.56, 1.56}; // чужой нирс
+    G4double reflectionIndexPolystyrene[2] = {1.63, 1.63};
     G4double fraction[2] = {1.0, 1.0}; // нужно поменять 
     mptPolystyrene -> AddProperty("RINDEX", energy, reflectionIndexPolystyrene, 2);
     mptPolystyrene -> AddProperty("SCINTILLATIONCOMPONENT1", energy, fraction, 2);
-    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD", 1200. / MeV); // чужой нирс, световыход на единицу энергопотерь
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD", 1200. / MeV); // световыход на единицу энергопотерь, уменьшенный в 10 раз
     mptPolystyrene -> AddConstProperty("RESOLUTIONSCALE", 1.0); // доля энергетического спектра, участвующего в генерации
     mptPolystyrene -> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 2.4 * ns); // Время высвечивания быстрой компоненты сцинтилляционной вспышки
     mptPolystyrene -> AddConstProperty("SCINTILLATIONTIMECONSTANT2", 5. * ns); // Время высвечивания медленной компоненты сцинтилляционной вспышки
-    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD1", 1.); // доля быстрой компоненты
+    mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD1", .65); // доля быстрой компоненты
     mptPolystyrene -> AddConstProperty("SCINTILLATIONYIELD2", 0.); // доля медленной компоненты
     polystyrene -> GetIonisation() -> SetBirksConstant(0.126 * mm / MeV); // постоянная Биркса
     polystyrene -> SetMaterialPropertiesTable(mptPolystyrene);
@@ -81,6 +81,14 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
         rotm -> rotateZ((22.5 * i) * deg);
         auto PhysTile2 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile2, "physTile2", logicWorld, false, i, true);
     }
+
+    // auto meshTile3 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_3.stl"); // abs path
+    // auto logicTile3 = new G4LogicalVolume(meshTile3 -> GetSolid(), polystyrene, "logicTile3");
+    // for (G4int i = 0; i < 16; i++){
+    //     auto rotm = new G4RotationMatrix();
+    //     rotm -> rotateZ((22.5 * i) * deg);
+    //     auto PhysTile3 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile3, "physTile3", logicWorld, false, i, true);
+    // }
                                 
     return physWorld;
 }
