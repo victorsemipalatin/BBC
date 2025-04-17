@@ -15,13 +15,14 @@ PrimaryGenerator::~PrimaryGenerator(){
 void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
     G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
-
-    G4ThreeVector position(0., 150. * mm, -1000. * mm);
-    G4ThreeVector momentum(0., 0., 1.);
+    auto angle = 0. * degree;
+    angle += 90. * degree;
+    G4ThreeVector position(0., 50. * mm, -1000. * mm);
+    G4ThreeVector momentum(0., cos(angle), sin(angle));
 
     ParticleGun -> SetParticlePosition(position);
     ParticleGun -> SetParticleMomentumDirection(momentum);
-    ParticleGun -> SetParticleMomentum(1. * GeV);
+    ParticleGun -> SetParticleMomentum(4. * GeV);
     ParticleGun -> SetParticleDefinition(particle);
 
     ParticleGun -> GeneratePrimaryVertex(Event);
