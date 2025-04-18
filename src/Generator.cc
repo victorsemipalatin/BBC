@@ -2,7 +2,7 @@
 
 
 PrimaryGenerator::PrimaryGenerator(){
-    ParticleGun = new G4ParticleGun(1); // 1 частица в событие
+    ParticleGun = new G4ParticleGun(1); // 1 частица в событии
 }
 
 
