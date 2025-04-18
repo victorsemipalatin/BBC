@@ -1,0 +1,73 @@
+#уровень диагностики визуализации (0 - 6)
+/vis/verbose 2
+#уровень диагностики сеанса (0 - 6)
+/run/verbose 2
+#создание пустой сцены
+/vis/scene/create
+#Открытие драйвера (драйверы мгновенной прорисовки, драйверы записи в файл на диск: HepRepFile, VRML2FILE)
+#/vis/open OGL 600x800-0+0
+#/vis/open OGLIX
+#vis/open HepRepFile
+/vis/open OGLI
+#перерисовка после изменения параметров рисунка (/vis/drawVolume, vis/viewer...., vis/scene/....), default: true
+/vis/viewer/set/autoRefresh true
+#предел на число используемых экранов перерисовки (много вторичных частиц, при превышении предела экранов перерисовки вторичнве треки не сохраняются, УСТАРЕВШИЙ ПАРАМЕТР)
+/vis/ogl/set/displayListLimit 500000
+
+# Прорисовка геометрии
+/vis/drawVolume
+
+#задание угла зрения
+/vis/viewer/set/viewpointVector 1 0 0
+/vis/viewer/set/lightsVector -1 0 0
+/vis/viewer/set/viewpointThetaPhi 120 150
+
+#Стиль прорисовки поверхности детекторов (по умолчанию: каркасный; или повехностный) 
+#/vis/viewer/set/style surface
+
+#Не рисовать МИР (материнский объём)
+/vis/geometry/set/visibility world_log 0 false
+
+#Прорисовка трека внутри детектора
+/vis/viewer/set/hiddenMarker false
+
+#Прорисовка осей: x=red, y=green, z=blue.
+#/vis/scene/add/axes  0 0 0 0.2
+#Дата
+#/vis/scene/add/date
+#eventID
+/vis/scene/add/eventID
+#logo GEANT4
+#/vis/scene/add/logo2D
+
+#Визуализация до запуска частицы
+/vis/viewer/flush
+
+#Рисовать траектории гладкими
+/vis/scene/add/trajectories smooth
+#Рисовать точки трека размером 4 пиксела
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawAuxPts true
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 4
+
+#Траектории частиц сохраняются и могут быть визуализированы (возможно переполнение оперативной памяти, если частиц очень много)
+/tracking/storeTrajectory 1
+
+#Визуализация всех событий данного сеанса на одном рисунке
+/vis/scene/endOfEventAction accumulate
+
+#Запуск частицы
+/run/beamOn 1
+
+#Цвет текста
+/vis/set/textColour yellow
+#Положение текста
+/vis/set/textLayout right
+#Добавление текста (x, y, размер текста, смещение x, смещение y, текст)
+#/vis/scene/add/text2D 0.9 -0.9 15 0 0 МИФИ
+#Добавление текста (x, y, z, ед. измерения, размер текста, смещение x, смещение y, текст)
+#/vis/scene/add/text -0.1 -0.25 0 m 18 0 0 НИЯУ
+
+#Автоматическая перерисовка при изменении параметров визуализации
+/vis/viewer/set/autoRefresh true
