@@ -1,4 +1,0 @@
-/control/verbose 0
-/run/verbose 0
-/run/initialize
-/control/execute vis.mac

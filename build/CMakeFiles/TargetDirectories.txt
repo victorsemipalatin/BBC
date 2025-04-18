@@ -1,3 +1,0 @@
-/home/e/BBC/build/CMakeFiles/BBC.dir
-/home/e/BBC/build/CMakeFiles/edit_cache.dir
-/home/e/BBC/build/CMakeFiles/rebuild_cache.dir
