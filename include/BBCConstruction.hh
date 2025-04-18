@@ -6,13 +6,16 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
 #include "G4Box.hh"
-#include "G4Trd.hh"
-#include "G4Trap.hh"
 #include "G4VSolid.hh"
-#include "G4SubtractionSolid.hh"
 #include "G4PVPlacement.hh"
 #include "G4NistManager.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4OpticalSurface.hh"
+#include "G4LogicalBorderSurface.hh"
+#include "G4VisAttributes.hh"
+#include "G4Color.hh"
+#include "G4SDManager.hh"
+#include "SensitiveDetector.hh"
 
 
 #define PI 3.14159265
@@ -23,6 +26,10 @@ class BBCConstruction: public G4VUserDetectorConstruction{
         BBCConstruction();
         ~BBCConstruction();
         virtual G4VPhysicalVolume *Construct();
+    private:
+        G4LogicalVolume *logicDetector;
+        
+        virtual void ConstructSDandField();
 };
 
 #endif

@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BBC.dir/src/BBCPhysics.cc.o.d"
   "CMakeFiles/BBC.dir/src/Generator.cc.o"
   "CMakeFiles/BBC.dir/src/Generator.cc.o.d"
+  "CMakeFiles/BBC.dir/src/SensitiveDetector.cc.o"
+  "CMakeFiles/BBC.dir/src/SensitiveDetector.cc.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

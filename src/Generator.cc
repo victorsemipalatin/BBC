@@ -8,7 +8,7 @@ PrimaryGenerator::PrimaryGenerator(){
 
 PrimaryGenerator::~PrimaryGenerator(){
     delete ParticleGun;
-    G4cout << "PrimaryGenerator killed" << std::endl;
+    G4cout << "PrimaryGenerator killed" << G4endl;
 }
 
 
@@ -17,7 +17,7 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
     auto angle = 0. * degree;
     angle += 90. * degree;
-    G4ThreeVector position(0., 50. * mm, -1000. * mm);
+    G4ThreeVector position(12. * mm, 75. * mm, -1000. * mm);
     G4ThreeVector momentum(0., cos(angle), sin(angle));
 
     ParticleGun -> SetParticlePosition(position);

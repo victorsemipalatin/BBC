@@ -623,13 +623,7 @@ CMakeFiles/BBC.dir/BBC.cc.o: /home/e/BBC/BBC.cc \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VPhysicalVolume.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalVolume.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Box.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trd.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Trap.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSolid.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SubtractionSolid.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4DisplacedSolid.hh \
- /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BooleanSolid.icc \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4PVPlacement.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NistManager.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NistElementBuilder.hh \
@@ -638,6 +632,88 @@ CMakeFiles/BBC.dir/BBC.cc.o: /home/e/BBC/BBC.cc \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Pow.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Exp.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SystemOfUnits.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4OpticalSurface.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Physics2DVector.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Physics2DVector.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SurfaceProperty.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalBorderSurface.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalSurface.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalSurface.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4LogicalBorderSurface.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VisAttributes.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Color.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SDManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SDStructure.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSensitiveDetector.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VReadOutGeometry.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4SensitiveVolumeList.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4CollectionNameVector.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSDFilter.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4HCtable.hh \
+ /home/e/BBC/include/SensitiveDetector.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VSensitiveDetector.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AnalysisManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4GenericAnalysisManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ToolsAnalysisManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VAnalysisManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AnalysisManagerState.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AnalysisVerbose.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VTBaseHnManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4HnInformation.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4AnalysisUtilities.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BinScheme.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Fcn.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VAnalysisManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4HnManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BaseAnalysisManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NtupleBookingManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/ntuple_booking \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/cids \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/cid \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/typedefs \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/forit \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4NtupleBookingManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VNtupleManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VFileManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4BaseFileManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VTHnFileManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TH1ToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnMessenger.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnToolsManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4THnMessenger.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4Tokenizer.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TH2ToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TH3ToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TP1ToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4TP2ToolsManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h1d \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h1 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/b1 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/base_histo \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/histo_data \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/axes \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/axis \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/eqT \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h2d \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h2 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/b2 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h3d \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/h3 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/b3 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/p1d \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/p1 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/profile_data \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/p2d \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/tools/histo/p2 \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4ToolsAnalysisManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4GenericAnalysisManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4GenericFileManager.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4GenericFileManager.icc \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4UnitsTable.hh \
+ /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4UnitsTable.icc \
  /home/e/BBC/include/BBCPhysics.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VModularPhysicsList.hh \
  /home/e/geant4/install_path/geant4-v11.1.2-install/include/Geant4/G4VPhysicsConstructor.hh \

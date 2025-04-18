@@ -11,37 +11,30 @@
 
 
 int main(int argc, char **argv){
-
+    G4UIExecutive *ui;
     G4RunManager *runManager = new G4RunManager();
     runManager -> SetUserInitialization(new BBCConstruction());
     runManager -> SetUserInitialization(new PhysicsList());
     runManager -> SetUserInitialization(new ActionInitialization());
     runManager -> Initialize();
 
-    G4VisManager *visManager = new G4VisExecutive;
+    if (argc == 1){
+        ui = new G4UIExecutive(argc, argv);
+    }
+
+    G4VisManager *visManager = new G4VisExecutive();
     visManager -> Initialize();
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
-    // UImanager -> ApplyCommand("/vis/open OGL");
-    // UImanager -> ApplyCommand("/vis/viewer/set/viewpointVector 1 1 1");
-    // UImanager -> ApplyCommand("/vis/drawVolume");
-    // UImanager -> ApplyCommand("/vis/viewer/set/autoRefresh true");
-    // UImanager -> ApplyCommand("/vis/scene/add/trajectories smooth");
-    UImanager->ApplyCommand("/control/execute init_vis.mac");
 
-    G4UIExecutive* ui = nullptr;
-    if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
-    if ( ! ui ) {
-        // batch mode
+    if(ui){
+        UImanager -> ApplyCommand("/control/execute vis.mac");
+        ui -> SessionStart();
+    }
+    else{
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
-        UImanager->ApplyCommand(command+fileName);
-      }
-    else {
-        // interactive mode
-        UImanager->ApplyCommand("/control/execute init_vis.mac");
-        ui->SessionStart();
-        delete ui;
+        UImanager -> ApplyCommand(command + fileName);
     }
 
     return 0;

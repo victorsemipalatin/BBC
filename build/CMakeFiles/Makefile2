@@ -81,12 +81,12 @@ clean: CMakeFiles/BBC.dir/clean
 CMakeFiles/BBC.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/e/BBC/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target BBC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/e/BBC/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target BBC"
 .PHONY : CMakeFiles/BBC.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/BBC.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/BBC/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/BBC/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/BBC.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/BBC/build/CMakeFiles 0
 .PHONY : CMakeFiles/BBC.dir/rule

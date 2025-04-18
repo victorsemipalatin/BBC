@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/e/BBC/src/BBCConstruction.cc" "CMakeFiles/BBC.dir/src/BBCConstruction.cc.o" "gcc" "CMakeFiles/BBC.dir/src/BBCConstruction.cc.o.d"
   "/home/e/BBC/src/BBCPhysics.cc" "CMakeFiles/BBC.dir/src/BBCPhysics.cc.o" "gcc" "CMakeFiles/BBC.dir/src/BBCPhysics.cc.o.d"
   "/home/e/BBC/src/Generator.cc" "CMakeFiles/BBC.dir/src/Generator.cc.o" "gcc" "CMakeFiles/BBC.dir/src/Generator.cc.o.d"
+  "/home/e/BBC/src/SensitiveDetector.cc" "CMakeFiles/BBC.dir/src/SensitiveDetector.cc.o" "gcc" "CMakeFiles/BBC.dir/src/SensitiveDetector.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

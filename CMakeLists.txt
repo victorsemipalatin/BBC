@@ -13,6 +13,8 @@ endif()
 include(${Geant4_USE_FILE}) 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+file(GLOB MACRO_FILES "macros/*.mac")
+file(COPY ${MACRO_FILES} DESTINATION ${CMAKE_BINARY_DIR}/)
 
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh) 

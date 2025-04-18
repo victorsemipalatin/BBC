@@ -6,7 +6,7 @@ ActionInitialization::ActionInitialization(){
 
 
 ActionInitialization::~ActionInitialization(){
-    G4cout << "ActionInitialization killed" << std::endl;
+    G4cout << "ActionInitialization killed" << G4endl;
 }
 
 

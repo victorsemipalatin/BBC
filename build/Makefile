@@ -249,6 +249,30 @@ src/Generator.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/src/Generator.cc.s
 .PHONY : src/Generator.cc.s
 
+src/SensitiveDetector.o: src/SensitiveDetector.cc.o
+.PHONY : src/SensitiveDetector.o
+
+# target to build an object file
+src/SensitiveDetector.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/src/SensitiveDetector.cc.o
+.PHONY : src/SensitiveDetector.cc.o
+
+src/SensitiveDetector.i: src/SensitiveDetector.cc.i
+.PHONY : src/SensitiveDetector.i
+
+# target to preprocess a source file
+src/SensitiveDetector.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/src/SensitiveDetector.cc.i
+.PHONY : src/SensitiveDetector.cc.i
+
+src/SensitiveDetector.s: src/SensitiveDetector.cc.s
+.PHONY : src/SensitiveDetector.s
+
+# target to generate assembly for a file
+src/SensitiveDetector.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BBC.dir/build.make CMakeFiles/BBC.dir/src/SensitiveDetector.cc.s
+.PHONY : src/SensitiveDetector.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,6 +297,9 @@ help:
 	@echo "... src/Generator.o"
 	@echo "... src/Generator.i"
 	@echo "... src/Generator.s"
+	@echo "... src/SensitiveDetector.o"
+	@echo "... src/SensitiveDetector.i"
+	@echo "... src/SensitiveDetector.s"
 .PHONY : help
 
 
