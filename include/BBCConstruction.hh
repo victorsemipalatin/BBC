@@ -1,5 +1,5 @@
 #ifndef CONSTRUCTION_HH
-#define CINSTRUCTION_HH
+#define CONSTRUCTION_HH
 
 #include <cmath>
 #include "G4VUserDetectorConstruction.hh"
@@ -24,11 +24,10 @@
 class BBCConstruction: public G4VUserDetectorConstruction{
     public:
         BBCConstruction();
-        ~BBCConstruction();
+        virtual ~BBCConstruction();
         virtual G4VPhysicalVolume *Construct();
     private:
         G4LogicalVolume *logicDetector;
-        
         virtual void ConstructSDandField();
 };
 

@@ -1,14 +1,16 @@
-#ifndef ACTION_HH
-#define ACTION_HH
+#ifndef ACTIONINITIALIZATION_HH
+#define ACTIONINITIALIZATION_HH
 
 #include "G4VUserActionInitialization.hh"
 #include "Generator.hh"
+#include "RunAction.hh"
 
 
 class ActionInitialization: public G4VUserActionInitialization{
     public:
         ActionInitialization();
         ~ActionInitialization();
+        virtual void BuildForMaster() const;
         virtual void Build() const; 
 };
 

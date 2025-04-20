@@ -46,23 +46,23 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     mptPolystyrene -> AddProperty("REFLECTIVITY", energy, reflectionIndexPolystyrene, 2);
     polystyrene -> SetMaterialPropertiesTable(mptPolystyrene);
 
-    G4MaterialPropertiesTable* surfaceMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable* mirrorSurfaceMPT = new G4MaterialPropertiesTable();
     G4double reflectivity[2] = {.9, .9};
     G4double efficiency[2] = {0.0, 0.0}; // отсутствие собственного излучения
-    surfaceMPT -> AddProperty("REFLECTIVITY", energy, reflectivity, 2);
-    surfaceMPT -> AddProperty("EFFICIENCY", energy, efficiency, 2);
+    mirrorSurfaceMPT -> AddProperty("REFLECTIVITY", energy, reflectivity, 2);
+    mirrorSurfaceMPT -> AddProperty("EFFICIENCY", energy, efficiency, 2);
 
     G4OpticalSurface* opOutSurface = new G4OpticalSurface("scintSurface");
     opOutSurface -> SetType(dielectric_metal);
     opOutSurface -> SetFinish(polished);
     opOutSurface -> SetModel(unified);
-    opOutSurface -> SetMaterialPropertiesTable(surfaceMPT);
+    opOutSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
     G4OpticalSurface* opInSurface = new G4OpticalSurface("scintSurface");
     opInSurface -> SetType(dielectric_dielectric);
     opInSurface -> SetFinish(polished);
     opInSurface -> SetModel(unified);
-    opInSurface -> SetMaterialPropertiesTable(surfaceMPT);
+    opInSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
     auto meshTile1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_1.stl"); // abs path
     auto logicTile1 = new G4LogicalVolume(meshTile1 -> GetSolid(), polystyrene, "logicTile1");
@@ -72,16 +72,15 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     logicTile1 -> SetVisAttributes(tile1Attr);
 
     G4int shift = 1;
-    G4int sectors_num = 2;
-
+    G4int sectors_num = 1;
     for (G4int i = 0; i < sectors_num; i++){
         auto rotm = new G4RotationMatrix();
         rotm -> rotateZ((22.5 * i) * deg);
         auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile1, "physTile1", logicWorld, false, i, checkOverlaps);
         auto logicalBorderInSurface = new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
-        auto logicalBorderOutSurface = new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
-        logicDetector = new G4LogicalVolume(meshTile1 -> GetSolid(), polystyrene, "logicDetector");
-        auto physDetector = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physDetector", logicWorld, false, i, checkOverlaps);
+        new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
+        // logicDetector = new G4LogicalVolume(meshTile1 -> GetSolid(), polystyrene, "logicDetector");
+        // auto physDetector = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physDetector", logicWorld, false, i, checkOverlaps);
     }
 
     // auto meshTile2 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_2.stl"); // abs path
@@ -92,13 +91,31 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     //     auto PhysTile2 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile2, "physTile2", logicWorld, false, i, checkOverlaps);
     // }
 
-    // auto meshShifter1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/shifter_1.stl"); // abs path
-    // auto logicShifter1 = new G4LogicalVolume(meshShifter1 -> GetSolid(), polystyrene, "logicShifter1");
-    // for (G4int i = 0; i < sectors_num; i++){
-    //     auto rotm = new G4RotationMatrix();
-    //     rotm -> rotateZ((22.5 * i) * deg);
-    //     auto PhysTile2 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicShifter1, "physShifter1", logicWorld, false, i, checkOverlaps);
-    // }
+    G4MaterialPropertiesTable* blackSurfaceMPT = new G4MaterialPropertiesTable();
+    G4double blackReflectivity[2] = {1.0, 1.0};
+    blackSurfaceMPT -> AddProperty("REFLECTIVITY", energy, blackReflectivity, 2);
+
+    G4OpticalSurface* blackSurface = new G4OpticalSurface("scintSurface");
+    blackSurface -> SetType(dielectric_metal);
+    blackSurface -> SetFinish(polished);
+    blackSurface -> SetModel(unified);
+    blackSurface -> SetMaterialPropertiesTable(blackSurfaceMPT);
+
+    auto meshShifter1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/shifter_1.stl"); // abs path
+    auto logicShifter1 = new G4LogicalVolume(meshShifter1 -> GetSolid(), polystyrene, "logicShifter1");
+    logicDetector = new G4LogicalVolume(logicShifter1 -> GetSolid(), polystyrene, "logicDetector");
+
+    auto shifter1Attr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
+    shifter1Attr -> SetForceSolid(true);
+    logicDetector -> SetVisAttributes(shifter1Attr);
+    for (G4int i = 0; i < sectors_num; i++){
+        auto rotm = new G4RotationMatrix();
+        rotm -> rotateZ((22.5 * i) * deg);
+        auto physShifter1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physShifter1", logicWorld, false, i, checkOverlaps);
+        new G4LogicalBorderSurface("shifterSurface", physWorld, physShifter1, blackSurface);
+        // auto SD = new SensitiveDetector("shifterAbsorber");
+        // logicShifter1 -> SetSensitiveDetector(SD);
+    }
 
     // auto meshTile3 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_3.stl"); // abs path
     // auto logicTile3 = new G4LogicalVolume(meshTile3 -> GetSolid(), polystyrene, "logicTile3");

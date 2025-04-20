@@ -8,5 +8,5 @@ PhysicsList::PhysicsList(){
 
 
 PhysicsList::~PhysicsList(){
-    G4cout << "Physics killed" << std::endl;
+    G4cout << "Physics killed" << G4endl;
 }

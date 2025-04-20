@@ -3,24 +3,27 @@
 
 SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name){
     fTotalEnergyDeposited = 0.;
+    count = 0;
 }
 
 
 SensitiveDetector::~SensitiveDetector(){
-    G4cout << "ActionInitialization killed" << G4endl;
+    G4cout << "SensitiveDetector killed" << G4endl;
 }
 
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *){
     fTotalEnergyDeposited = 0.;
+    count = 0.;
 }
 
 
 G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist){
-    // G4int eventID = G4RunManager::GetRunManager() -> GetCurrentEvent() -> GetEventID();
-    // G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    auto analysisManager = G4AnalysisManager::Instance();
 
     G4StepPoint *preStepPoint = aStep -> GetPreStepPoint();
+    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
+        count += 1.;
 
     // G4double fGlobalTime = preStepPoint -> GetGlobalTime();
     // G4ThreeVector posPhoton = preStepPoint -> GetPosition();
@@ -50,9 +53,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
-    // G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    auto analysisManager = G4AnalysisManager::Instance();
 
-    // analysisManager -> FillH1(0, fTotalEnergyDeposited);
+    analysisManager -> FillH1(0, count);
 
-    G4cout << "Deposited energy: " << fTotalEnergyDeposited << G4endl;
+    G4cout << "Detected photons in this event: " << count << G4endl;
 }
