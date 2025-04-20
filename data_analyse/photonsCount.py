@@ -11,5 +11,7 @@ for f in os.listdir(path_to_data):
     if f != "output0.root":
         f = ROOT.TFile(os.path.join(path_to_data, f))
         h1.Add(f.Get(name))
+h1.GetXaxis().SetTitle("Photons Count per Event");
+h1.GetYaxis().SetTitle("Number of events");
 h1.Draw()
 c1.SaveAs("photonsCount.png")
