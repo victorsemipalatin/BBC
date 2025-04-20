@@ -14,4 +14,7 @@ for f in os.listdir(path_to_data):
 h1.GetXaxis().SetTitle("Photons Count per Event");
 h1.GetYaxis().SetTitle("Number of events");
 h1.Draw()
+full_file = ROOT.TFile("data/full.root", "new")
+h1.Write()
+full_file.Write()
 c1.SaveAs("photonsCount.png")
