@@ -3,7 +3,16 @@
 
 PhysicsList::PhysicsList(){
     RegisterPhysics(new G4EmStandardPhysics());
-    RegisterPhysics(new G4OpticalPhysics());
+
+    G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
+    auto opticalParams = G4OpticalParameters::Instance();    
+    opticalParams -> SetProcessActivation("Cerenkov", true);
+    opticalParams -> SetProcessActivation("Scintillation", true);
+    opticalParams -> SetProcessActivation("OpWLS", true);
+    opticalParams -> SetProcessActivation("OpAbsorption", true);
+    
+    RegisterPhysics(opticalPhysics);
+    RegisterPhysics(new G4RadioactiveDecayPhysics());
 }
 
 

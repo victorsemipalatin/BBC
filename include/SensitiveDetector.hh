@@ -20,6 +20,8 @@ private:
     virtual void EndOfEvent(G4HCofThisEvent *) override;
     G4double fTotalEnergyDeposited;
     G4double count;
+    G4double photonsEnergy;
+    G4double cerenkovCount;
 };
 
 #endif

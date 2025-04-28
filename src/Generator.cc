@@ -18,6 +18,9 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     auto angle = 0. * degree;
     angle += 90. * degree;
     //71.
+    // G4int i = -1;
+    // G4int j = 3;
+    // G4ThreeVector position(i * 6.63 * 1 * mm, (46. + j * 9.2116) * mm, 100. * mm);
     G4ThreeVector position(0. * mm, 80. * mm, 100. * mm);
     G4ThreeVector momentum(0., cos(angle), -sin(angle));
 

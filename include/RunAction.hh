@@ -6,6 +6,7 @@
 #include "G4AnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
+#include <ctime>
 
 
 class RunAction: public G4UserRunAction{
