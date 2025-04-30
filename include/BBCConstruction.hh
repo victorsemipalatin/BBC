@@ -17,6 +17,13 @@
 #include "G4SDManager.hh"
 #include "SensitiveDetector.hh"
 
+#include "G4VSolid.hh"
+#include "G4SubtractionSolid.hh"
+#include "G4Trd.hh"
+#include "G4Tubs.hh"
+#include <vector>
+#include "G4ExtrudedSolid.hh"
+
 
 #define PI 3.14159265
 

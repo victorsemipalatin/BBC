@@ -3,9 +3,9 @@
 
 RunAction::RunAction(){
     auto analysisManager = G4AnalysisManager::Instance();
-    analysisManager -> CreateH1("PhotonsCount", "PhotonsCount", 100, 30000., 100000.);
+    analysisManager -> CreateH1("PhotonsCount", "PhotonsCount", 100, 38000., 100000.);
     analysisManager -> CreateH1("PhotonsEnergy", "PhotonsEnergy", 100, 1.2, 6.4);
-    analysisManager -> CreateH1("CherenkovCount", "CherenkovCount", 100, 900., 3900.);
+    analysisManager -> CreateH1("CherenkovCount", "CherenkovCount", 100, 1500., 5000.);
 }
 
 

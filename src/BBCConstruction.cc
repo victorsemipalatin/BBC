@@ -74,23 +74,23 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     scintillator -> GetIonisation() -> SetBirksConstant(0.126 * mm/MeV); // Примерное значение для полистирола
     scintillator -> SetMaterialPropertiesTable(mptScintillator);
 
-    G4MaterialPropertiesTable* mirrorSurfaceMPT = new G4MaterialPropertiesTable();
-    G4double reflectivity[2] = {.9, .9};
-    G4double efficiency[2] = {0.0, 0.0}; // отсутствие собственного излучения
-    mirrorSurfaceMPT -> AddProperty("REFLECTIVITY", energy, reflectivity, 2);
-    mirrorSurfaceMPT -> AddProperty("EFFICIENCY", energy, efficiency, 2);
+    // G4MaterialPropertiesTable* mirrorSurfaceMPT = new G4MaterialPropertiesTable();
+    // G4double reflectivity[2] = {.9, .9};
+    // G4double efficiency[2] = {0.0, 0.0}; // отсутствие собственного излучения
+    // mirrorSurfaceMPT -> AddProperty("REFLECTIVITY", energy, reflectivity, 2);
+    // mirrorSurfaceMPT -> AddProperty("EFFICIENCY", energy, efficiency, 2);
 
-    G4OpticalSurface* opOutSurface = new G4OpticalSurface("scintSurface");
-    opOutSurface -> SetType(dielectric_metal);
-    opOutSurface -> SetFinish(polished);
-    opOutSurface -> SetModel(unified);
-    opOutSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
+    // G4OpticalSurface* opOutSurface = new G4OpticalSurface("scintSurface");
+    // opOutSurface -> SetType(dielectric_metal);
+    // opOutSurface -> SetFinish(polished);
+    // opOutSurface -> SetModel(unified);
+    // opOutSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
-    G4OpticalSurface* opInSurface = new G4OpticalSurface("scintSurface");
-    opInSurface -> SetType(dielectric_dielectric);
-    opInSurface -> SetFinish(polished);
-    opInSurface -> SetModel(unified);
-    opInSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
+    // G4OpticalSurface* opInSurface = new G4OpticalSurface("scintSurface");
+    // opInSurface -> SetType(dielectric_dielectric);
+    // opInSurface -> SetFinish(polished);
+    // opInSurface -> SetModel(unified);
+    // opInSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
     auto meshTile1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_1.stl"); // abs path
     auto logicTile1 = new G4LogicalVolume(meshTile1 -> GetSolid(), scintillator, "logicTile1");
@@ -105,45 +105,45 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
         auto rotm = new G4RotationMatrix();
         rotm -> rotateZ((22.5 * i) * deg);
         auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile1, "physTile1", logicWorld, false, i, checkOverlaps);
-        auto logicalBorderInSurface = new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
-        new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
+        // auto logicalBorderInSurface = new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
+        // new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
         // logicDetector = new G4LogicalVolume(meshTile1 -> GetSolid(), scintillator, "logicDetector");
         // auto physDetector = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physDetector", logicWorld, false, i, checkOverlaps);
     }
 
-    // auto meshTile2 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_2.stl"); // abs path
-    // auto logicTile2 = new G4LogicalVolume(meshTile2 -> GetSolid(), scintillator, "logicTile2");
-    // for (G4int i = 0; i < 16; i++){
+    // // auto meshTile2 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_2.stl"); // abs path
+    // // auto logicTile2 = new G4LogicalVolume(meshTile2 -> GetSolid(), scintillator, "logicTile2");
+    // // for (G4int i = 0; i < 16; i++){
+    // //     auto rotm = new G4RotationMatrix();
+    // //     rotm -> rotateZ((22.5 * i) * deg);
+    // //     auto PhysTile2 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile2, "physTile2", logicWorld, false, i, checkOverlaps);
+    // // }
+
+    // G4MaterialPropertiesTable* blackSurfaceMPT = new G4MaterialPropertiesTable();
+    // G4double blackReflectivity[2] = {1.0, 1.0};
+    // blackSurfaceMPT -> AddProperty("REFLECTIVITY", energy, blackReflectivity, 2);
+
+    // G4OpticalSurface* blackSurface = new G4OpticalSurface("scintSurface");
+    // blackSurface -> SetType(dielectric_metal);
+    // blackSurface -> SetFinish(polished);
+    // blackSurface -> SetModel(unified);
+    // blackSurface -> SetMaterialPropertiesTable(blackSurfaceMPT);
+
+    // auto meshShifter1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/shifter_1.stl"); // abs path
+    // auto logicShifter1 = new G4LogicalVolume(meshShifter1 -> GetSolid(), scintillator, "logicShifter1");
+    // logicDetector = new G4LogicalVolume(logicShifter1 -> GetSolid(), scintillator, "logicDetector");
+
+    // auto shifter1Attr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
+    // shifter1Attr -> SetForceSolid(true);
+    // logicDetector -> SetVisAttributes(shifter1Attr);
+    // for (G4int i = 0; i < sectors_num; i++){
     //     auto rotm = new G4RotationMatrix();
     //     rotm -> rotateZ((22.5 * i) * deg);
-    //     auto PhysTile2 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile2, "physTile2", logicWorld, false, i, checkOverlaps);
+    //     auto physShifter1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physShifter1", logicWorld, false, i, checkOverlaps);
+    //     new G4LogicalBorderSurface("shifterSurface", physWorld, physShifter1, blackSurface);
+    //     // auto SD = new SensitiveDetector("shifterAbsorber");
+    //     // logicShifter1 -> SetSensitiveDetector(SD);
     // }
-
-    G4MaterialPropertiesTable* blackSurfaceMPT = new G4MaterialPropertiesTable();
-    G4double blackReflectivity[2] = {1.0, 1.0};
-    blackSurfaceMPT -> AddProperty("REFLECTIVITY", energy, blackReflectivity, 2);
-
-    G4OpticalSurface* blackSurface = new G4OpticalSurface("scintSurface");
-    blackSurface -> SetType(dielectric_metal);
-    blackSurface -> SetFinish(polished);
-    blackSurface -> SetModel(unified);
-    blackSurface -> SetMaterialPropertiesTable(blackSurfaceMPT);
-
-    auto meshShifter1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/shifter_1.stl"); // abs path
-    auto logicShifter1 = new G4LogicalVolume(meshShifter1 -> GetSolid(), scintillator, "logicShifter1");
-    logicDetector = new G4LogicalVolume(logicShifter1 -> GetSolid(), scintillator, "logicDetector");
-
-    auto shifter1Attr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
-    shifter1Attr -> SetForceSolid(true);
-    logicDetector -> SetVisAttributes(shifter1Attr);
-    for (G4int i = 0; i < sectors_num; i++){
-        auto rotm = new G4RotationMatrix();
-        rotm -> rotateZ((22.5 * i) * deg);
-        auto physShifter1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physShifter1", logicWorld, false, i, checkOverlaps);
-        new G4LogicalBorderSurface("shifterSurface", physWorld, physShifter1, blackSurface);
-        // auto SD = new SensitiveDetector("shifterAbsorber");
-        // logicShifter1 -> SetSensitiveDetector(SD);
-    }
 
     // auto meshTile3 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_3.stl"); // abs path
     // auto logicTile3 = new G4LogicalVolume(meshTile3 -> GetSolid(), scintillator, "logicTile3");
@@ -152,13 +152,70 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     //     rotm -> rotateZ((22.5 * i) * deg);
     //     auto PhysTile3 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile3, "physTile3", logicWorld, false, i, checkOverlaps);
     // }
+
+
+    G4Trd *tile_1 = new G4Trd("Tile1", 17.9 / 2 * mm, 39.66 / 2 * mm, 10. / 2 * mm, 10. / 2 * mm, 54.7 / 2 * mm);
+    // G4LogicalVolume *logicTileTest = new G4LogicalVolume(tile_1, polystyrene, "logicTileTest");
+    // auto rotm = new G4RotationMatrix();
+    // rotm -> rotateX(90. * deg);
+    // G4VPhysicalVolume *physTile1 = new G4PVPlacement(rotm, G4ThreeVector(0., 73. * mm, 0.), logicTileTest, "physTile1", logicWorld, false, 0, true);
+
+    auto cylinder = new G4Tubs("Tube",
+        0,          // rmin = 0 (без дырки)
+        1.25 * mm,      // rmax = 50 мм
+        11. / 2 * mm,     // dz = 100 мм (высота 200 мм)
+        0 * deg,      // sphi = 0°
+        360 * deg);
+
+        
+    auto rotm = new G4RotationMatrix();
+    rotm -> rotateX(90. * deg);
+    auto subtraction1 = new G4SubtractionSolid("subtraction", tile_1, cylinder, rotm, G4ThreeVector(5.67 * mm, 0., -23.35 * mm));
+    auto subtraction2 = new G4SubtractionSolid("subtraction", subtraction1, cylinder, rotm, G4ThreeVector(-5.67 * mm, 0., -23.35 * mm));
+    auto subtraction3 = new G4SubtractionSolid("subtraction", subtraction2, cylinder, rotm, G4ThreeVector(14.89 * mm, 0., 23.35 * mm));
+    auto subtraction4 = new G4SubtractionSolid("subtraction", subtraction3, cylinder, rotm, G4ThreeVector(-14.89 * mm, 0., 23.35 * mm));
+
+
+    auto tube = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 7. / 2 * mm, 0 * deg, 360 * deg);
+    auto subtraction5 = new G4SubtractionSolid("subtraction", subtraction4, tube, rotm, G4ThreeVector(0., 3. * mm, 11. * mm));
+
+    std::vector<G4TwoVector> polygon;
+
+    // допустим, основание - параллелограмм со смещением по оси X
+    polygon.push_back(G4TwoVector(0., 0.));        // точка 1
+    polygon.push_back(G4TwoVector(3.2 * mm, 0.));    // точка 2
+    polygon.push_back(G4TwoVector((6.2 + 3 * 1.455) * mm, (2.08 + 3) * mm)); // точка 3 (смещена вправо)
+    polygon.push_back(G4TwoVector((3.0 + 3 * 1.455) * mm, (2.08 + 3) * mm)); // точка 4 (смещена вправо)
+    G4double halfZ =  7 / 2 * mm;  // Половина высоты призмы по оси Z
+    auto prism = new G4ExtrudedSolid("ParallelogramPrism",
+        polygon,
+        halfZ,
+        G4TwoVector(0,0), 1.0,  // сдвиг и масштаб нижней грани
+        G4TwoVector(0,0), 1.0); // сдвиг и масштаб верхней грани
+
+    auto rotation = new G4RotationMatrix();
+    rotation -> rotateX(90 * deg);
+    rotation -> rotateY(-180 * deg);
+    auto subtraction6 = new G4SubtractionSolid("subtraction", subtraction5, prism, rotation, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
+
+
+
+
+    G4LogicalVolume *logicTileTest = new G4LogicalVolume(subtraction6, polystyrene, "logicTileTest");
+    auto rotx = new G4RotationMatrix();
+    rotx -> rotateX(90 * deg);
+    rotx -> rotateZ(180 * deg);
+
+    logicTileTest -> SetVisAttributes(tile1Attr);
+
+    G4VPhysicalVolume *physTile1 = new G4PVPlacement(rotx, G4ThreeVector(-50., 73.5 * mm, 0.), logicTileTest, "physTile1", logicWorld, false, 0, true);
                                 
     return physWorld;
 }
 
 
 void BBCConstruction::ConstructSDandField(){
-    auto sensDet = new SensitiveDetector("SensitiveDetector");
-    logicDetector -> SetSensitiveDetector(sensDet);
-    G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet);
+    // auto sensDet = new SensitiveDetector("SensitiveDetector");
+    // logicDetector -> SetSensitiveDetector(sensDet);
+    // G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet);
 }

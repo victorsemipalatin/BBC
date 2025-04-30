@@ -239,7 +239,7 @@
  
  void langaus() {
     // Fill Histogram
-   	auto file = new TFile("combined/PhotonsCount.root");
+   auto file = new TFile("combined/PhotonsCount.root");
 	auto hSNR = (TH1F*)file -> Get("PhotonsCount");
     // Fitting SNR histo
     printf("Fitting...\n");
@@ -250,9 +250,9 @@
     fr[0]=0.3*hSNR->GetMean();
     fr[1]=3.0*hSNR->GetMean();
  
-    pllo[0]=0.5; pllo[1]=5.0; pllo[2]=1.0; pllo[3]=0.4;
-    plhi[0]=5.0; plhi[1]=50.0; plhi[2]=1000000.0; plhi[3]=5.0;
-    sv[0]=15000.; sv[1]=40000.; sv[2]=1962.0000; sv[3]=3.0;
+    pllo[0] = 0.5;  pllo[1] = 5.0;  pllo[2] = 1.0;   pllo[3] = 0.4;
+    plhi[0] = 1000000.;  plhi[1] = 5000000.; plhi[2] = 100000000.0; plhi[3] = 500.0;
+    sv[0] = 9432.;  sv[1] = 43217.;  sv[2] = 1962.0000;  sv[3] = 3.0;
  
     Double_t chisqr;
     Int_t    ndf;
