@@ -23,7 +23,8 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4int j = 3;
     // G4ThreeVector position(i * 6.63 * 1 * mm, (46. + j * 9.2116) * mm, 100. * mm);
     // G4ThreeVector position(0. * mm, 80. * mm, 100. * mm);
-    G4ThreeVector position(0. * mm, 80. * mm, 100. * mm);
+    // G4ThreeVector position(0. * mm, 80. * mm, 100. * mm);
+    G4ThreeVector position(-11. * mm, -4. * mm, 100. * mm);
     G4ThreeVector momentum(0., cos(angle), -sin(angle));
 
     ParticleGun -> SetParticlePosition(position);

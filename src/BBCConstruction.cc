@@ -107,18 +107,18 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // **************************************** //
 
     // ********* НАСТРОЙКА ОТРИСОВКИ ********* //    
-    auto tile1Attr = new G4VisAttributes(G4Color(192, 192, 192, 0.5)); // серый цвет
-    tile1Attr -> SetForceSolid(true);
+    auto tileAttr = new G4VisAttributes(G4Color(192, 192, 192, 1.)); // серый цвет
+    tileAttr -> SetForceSolid(true);
 
-    auto shifter1Attr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
-    shifter1Attr -> SetForceSolid(true);
+    auto shifterAttr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
+    shifterAttr -> SetForceSolid(true);
     // **************************************** //
 
     // *************** CADMesh *************** //
 
     // auto meshTile1 = CADMesh::TessellatedMesh::FromOBJ("/home/e/BBC/models/tile_1.stl"); // abs path
     // auto logicTile1 = new G4LogicalVolume(meshTile1 -> GetSolid(), scintillator, "logicTile1");
-    // logicTile1 -> SetVisAttributes(tile1Attr);
+    // logicTile1 -> SetVisAttributes(tileAttr);
 
     // logicDetector = new G4LogicalVolume(logicTile1 -> GetSolid(), worldMat, "logicDetector");
 
@@ -168,60 +168,116 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     // *********** ПРИМИТИВЫ GEANT4 *********** //
 
+    // **************** Тайл 0 **************** //
+    // G4int shift = 1;
+    // G4int sectors_num = 1;
+    // G4Trd *prismSolid = new G4Trd("Tile1", 17.9 / 2 * mm, 39.66 / 2 * mm, 10. / 2 * mm, 10. / 2 * mm, 54.7 / 2 * mm);
+
+    // auto cylinder = new G4Tubs("Сylinder", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
+
+    // auto rotationMatrix = new G4RotationMatrix();
+    // rotationMatrix -> rotateX(90. * deg);
+    // auto subtraction1 = new G4SubtractionSolid("Subtraction1", prismSolid, cylinder, rotationMatrix, G4ThreeVector(5.67 * mm, 0., -23.35 * mm));
+    // auto subtraction2 = new G4SubtractionSolid("Subtraction2", subtraction1, cylinder, rotationMatrix, G4ThreeVector(-5.67 * mm, 0., -23.35 * mm));
+    // auto subtraction3 = new G4SubtractionSolid("Subtraction3", subtraction2, cylinder, rotationMatrix, G4ThreeVector(14.89 * mm, 0., 23.35 * mm));
+    // auto subtraction4 = new G4SubtractionSolid("Subtraction4", subtraction3, cylinder, rotationMatrix, G4ThreeVector(-14.89 * mm, 0., 23.35 * mm));
+
+    // auto tube = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 7. / 2 * mm, 0 * deg, 360 * deg);
+    // auto subtraction5 = new G4SubtractionSolid("Subtraction5", subtraction4, tube, rotationMatrix, G4ThreeVector(0., 3. * mm, 11. * mm));
+
+    // std::vector<G4TwoVector> polygon;
+    // G4double delta = 2.7;
+    // polygon.push_back(G4TwoVector(0., 0.));
+    // polygon.push_back(G4TwoVector(3.2 * mm, 0.));
+    // polygon.push_back(G4TwoVector((6.2 + delta * 1.455) * mm, (2.08 + delta) * mm));
+    // polygon.push_back(G4TwoVector((3.0 + delta * 1.455) * mm, (2.08 + delta) * mm));
+    // G4double halfZ =  7 / 2 * mm;
+    // auto prism = new G4ExtrudedSolid("Prism", polygon, halfZ, G4TwoVector(0, 0), 1.0, G4TwoVector(0, 0), 1.0);
+
+    // auto rotation = new G4RotationMatrix();
+    // rotation -> rotateX(90 * deg);
+    // rotation -> rotateY(-180 * deg);
+    
+    // auto solidTile1 = new G4SubtractionSolid("SolidTile1", subtraction5, prism, rotation, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
+
+    // G4LogicalVolume *logicTile1 = new G4LogicalVolume(solidTile1, scintillator, "logicTile1");
+
+    // logicTile1 -> SetVisAttributes(tileAttr);
+    // logicDetector = logicTile1;
+
+    // G4double r = 73.35;
+    // for (G4int i = 0; i < sectors_num; i++){
+    //     auto rotm = new G4RotationMatrix();
+    //     rotm -> rotateX(90 * deg);
+    //     rotm -> rotateZ((22.5 * i) * deg);
+    //     auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r +  shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physTile1", logicWorld, false, i, checkOverlaps);
+    //     new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
+    //     new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
+    // }
+    
+    // **************************************** //
+
+    // **************** Тайл 5 **************** //
     G4int shift = 1;
     G4int sectors_num = 1;
-    G4Trd *prismSolid = new G4Trd("Tile1", 17.9 / 2 * mm, 39.66 / 2 * mm, 10. / 2 * mm, 10. / 2 * mm, 54.7 / 2 * mm);
-
-    auto cylinder = new G4Tubs("Tube", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
-
-    auto rotationMatrix = new G4RotationMatrix();
-    rotationMatrix -> rotateX(90. * deg);
-    auto subtraction1 = new G4SubtractionSolid("Subtraction1", prismSolid, cylinder, rotationMatrix, G4ThreeVector(5.67 * mm, 0., -23.35 * mm));
-    auto subtraction2 = new G4SubtractionSolid("Subtraction2", subtraction1, cylinder, rotationMatrix, G4ThreeVector(-5.67 * mm, 0., -23.35 * mm));
-    auto subtraction3 = new G4SubtractionSolid("Subtraction3", subtraction2, cylinder, rotationMatrix, G4ThreeVector(14.89 * mm, 0., 23.35 * mm));
-    auto subtraction4 = new G4SubtractionSolid("Subtraction4", subtraction3, cylinder, rotationMatrix, G4ThreeVector(-14.89 * mm, 0., 23.35 * mm));
-
-    auto tube = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 7. / 2 * mm, 0 * deg, 360 * deg);
-    auto subtraction5 = new G4SubtractionSolid("Subtraction", subtraction4, tube, rotationMatrix, G4ThreeVector(0., 3. * mm, 11. * mm));
-
-    std::vector<G4TwoVector> polygon;
-    G4double delta = 2.7;
-    polygon.push_back(G4TwoVector(0., 0.));
-    polygon.push_back(G4TwoVector(3.2 * mm, 0.));
-    polygon.push_back(G4TwoVector((6.2 + delta * 1.455) * mm, (2.08 + delta) * mm));
-    polygon.push_back(G4TwoVector((3.0 + delta * 1.455) * mm, (2.08 + delta) * mm));
-    G4double halfZ =  7 / 2 * mm;
-    auto prism = new G4ExtrudedSolid("ParallelogramPrism", polygon, halfZ, G4TwoVector(0,0), 1.0, G4TwoVector(0,0), 1.0);
-
-    auto rotation = new G4RotationMatrix();
-    rotation -> rotateX(90 * deg);
-    rotation -> rotateY(-180 * deg);
+    std::vector<G4TwoVector> polygon1;
+    polygon1.push_back(G4TwoVector(0., 0.));
+    polygon1.push_back(G4TwoVector(53.19 * mm, 0.));
+    polygon1.push_back(G4TwoVector(64.26 * mm, 55.61 * mm));
+    polygon1.push_back(G4TwoVector(0., 55.61 * mm));
+    G4double halfZ1 =  10 / 2 * mm;
+    auto prism1 = new G4ExtrudedSolid("Prism1", polygon1, halfZ1, G4TwoVector(0, 0), 1.0, G4TwoVector(0, 0), 1.0);
     
-    auto solidTile1 = new G4SubtractionSolid("Subtraction5", subtraction5, prism, rotation, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
+    auto cylinder = new G4Tubs("Сylinder", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
+    auto subtraction1 = new G4SubtractionSolid("Subtraction1", prism1, cylinder, nullptr, G4ThreeVector(4.2 * mm, 4.2 * mm, 0.));
+    auto subtraction2 = new G4SubtractionSolid("Subtraction2", subtraction1, cylinder, nullptr, G4ThreeVector(49.95 * mm, 4.2 * mm, 0.));
+    auto subtraction3 = new G4SubtractionSolid("Subtraction3", subtraction2, cylinder, nullptr, G4ThreeVector(4.2 * mm, 51.41 * mm, 0.));
+    auto subtraction4 = new G4SubtractionSolid("Subtraction4", subtraction3, cylinder, nullptr, G4ThreeVector(59.34 * mm, 51.41 * mm, 0.));
 
-    G4LogicalVolume *logicTile1 = new G4LogicalVolume(solidTile1, scintillator, "logicTile1");
-    auto rotx = new G4RotationMatrix();
-    rotx -> rotateX(90 * deg);
-    rotx -> rotateZ(180 * deg);
+    auto arc1 = new G4Tubs("Сylinder", 22.51 * mm, 24.11 * mm, 7 / 2 * mm, 90. * deg, 180. * deg);
+    auto subtraction5 = new G4SubtractionSolid("Subtraction5", subtraction4, arc1, nullptr, G4ThreeVector(25.81 * mm, 27.81 * mm, -3. * mm));
 
-    logicTile1 -> SetVisAttributes(tile1Attr);
-    logicDetector = logicTile1;
+    auto arc2 = new G4Tubs("Сylinder", 22.51 * mm, 24.11 * mm, 7 / 2 * mm, -90. * deg, 180. * deg);
+    auto subtraction6 = new G4SubtractionSolid("Subtraction6", subtraction5, arc2, nullptr, G4ThreeVector(30.07 * mm, 27.81 * mm, -3. * mm));
 
-    G4double r = 73.35;
+    auto box = new G4Box("Box", 4.28 / 2 * mm, 1.6 / 2 * mm, 7 / 2 * mm); // 4.26
+    auto subtraction7 = new G4SubtractionSolid("Subtraction7", subtraction6, box, nullptr, G4ThreeVector(27.94 * mm, 4.5 * mm, -3. * mm));
+    auto subtraction8 = new G4SubtractionSolid("Subtraction8", subtraction7, box, nullptr, G4ThreeVector(27.94 * mm, 51.11 * mm, -3. * mm));
+
+    auto logicTile5 = new G4LogicalVolume(subtraction8, scintillator, "logicTile1");
+
+    // TODO: отверстие для вывода оптоволокна из тайла
+
+    // Shifter
+    auto sum1 = new G4UnionSolid("sum1", arc1, box, nullptr, G4ThreeVector(2.13 * mm, 23.31 * mm, 0.));
+    auto sum2 = new G4UnionSolid("sum2", sum1, box, nullptr, G4ThreeVector(2.13 * mm, -23.31 * mm, 0.));
+    auto sum3 = new G4UnionSolid("sum3", sum2, arc2, nullptr, G4ThreeVector(2 * 2.13 * mm, 0., 0.));
+
+    auto logicShifter5 = new G4LogicalVolume(sum3, worldMat, "logicShifter5");
+
+    logicDetector5 = logicShifter5;
+
+    logicTile5 -> SetVisAttributes(tileAttr);
+    logicDetector5 -> SetVisAttributes(shifterAttr);
+
     for (G4int i = 0; i < sectors_num; i++){
-        rotx -> rotateZ((22.5 * i) * deg);
-        auto physTile1 = new G4PVPlacement(rotx, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r +  shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physTile1", logicWorld, false, i, checkOverlaps);
-        // auto physDetector = new G4PVPlacement(rotx, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r + shift * cos(22.5 * PI / 180 * i) * mm, 0), logicDetector, "physDetector", logicWorld, false, i, checkOverlaps);
-        new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
-        new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
+        auto rotm = new G4RotationMatrix();
+        rotm -> rotateY(180. * deg);
+        rotm -> rotateZ((22.5 * i) * deg);
+        auto physTile5 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile5, "physTile5", logicWorld, false, i, checkOverlaps);
+        auto physShifter5 = new G4PVPlacement(rotm, G4ThreeVector(-25.81 + shift * sin(22.5  * PI / 180 * i) * mm, 27.81 + shift * cos(22.5 * PI / 180 * i) * mm, 2. * mm), logicDetector5, "physShifter5", logicWorld, false, i, checkOverlaps);
+        new G4LogicalBorderSurface("scintInSurface", physTile5, physWorld, opInSurface);
+        new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile5, opOutSurface);
     }
+
+    // **************************************** //
 
     // auto solidShifter1 = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 3. / 2 * mm, 0 * deg, 360 * deg); 
     // logicDetector = new G4LogicalVolume(solidShifter1, scintillator, "logicDetector");
 
-    // auto shifter1Attr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
-    // shifter1Attr -> SetForceSolid(true);
-    // logicDetector -> SetVisAttributes(shifter1Attr);
+    // auto shifterAttr = new G4VisAttributes(G4Color(0, 255, 0, 0.5));
+    // shifterAttr -> SetForceSolid(true);
+    // logicDetector -> SetVisAttributes(shifterAttr);
 
     // for (G4int i = 0; i < sectors_num; i++){
     //     auto rotm = new G4RotationMatrix();
@@ -236,7 +292,11 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
 
 void BBCConstruction::ConstructSDandField(){
-    auto sensDet = new SensitiveDetector("SensitiveDetector");
-    logicDetector -> SetSensitiveDetector(sensDet);
-    G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet);
+    // auto sensDet1 = new SensitiveDetector("SensitiveDetector1");
+    // logicDetector1 -> SetSensitiveDetector(sensDet1);
+    // G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet1);
+
+    auto sensDet5 = new SensitiveDetector("SensitiveDetector5");
+    logicDetector5 -> SetSensitiveDetector(sensDet5);
+    G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet5);
 }

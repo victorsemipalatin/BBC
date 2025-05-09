@@ -23,6 +23,7 @@
 #include "G4Tubs.hh"
 #include <vector>
 #include "G4ExtrudedSolid.hh"
+#include "G4UnionSolid.hh"
 
 
 #define PI 3.14159265
@@ -34,7 +35,8 @@ class BBCConstruction: public G4VUserDetectorConstruction{
         virtual ~BBCConstruction();
         virtual G4VPhysicalVolume *Construct();
     private:
-        G4LogicalVolume *logicDetector;
+        G4LogicalVolume *logicDetector1;
+        G4LogicalVolume *logicDetector5;
         virtual void ConstructSDandField();
 };
 
