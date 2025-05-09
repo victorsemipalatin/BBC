@@ -16,44 +16,39 @@ SensitiveDetector::~SensitiveDetector(){
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *){
     fTotalEnergyDeposited = 0.;
-    count = 0.;
+    count = 0;
     photonsEnergy = 0.;
-    cerenkovCount = 0.;
+    cerenkovCount = 0;
 }
 
 
 G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist){
     auto analysisManager = G4AnalysisManager::Instance();
-
+    G4Track* track = aStep -> GetTrack();
+    auto creatorProcessPtr = track -> GetCreatorProcess();
+    G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr -> GetProcessName() : "primary";
     G4StepPoint *preStepPoint = aStep -> GetPreStepPoint();
+
+    // G4int trackID = track -> GetTrackID();
+    // if (fGeneratedParticles.find(trackID) == fGeneratedParticles.end()){
+    //     fGeneratedParticles.insert(trackID);
+    // }
+
     if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-        count += 1.;
+        count += 1;
         photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-        // G4cout << photonsEnergy << G4endl;
         analysisManager -> FillH1(1, photonsEnergy / eV);
     }
 
-    const G4Track* track = aStep -> GetTrack();
-    auto creatorProcess = track -> GetCreatorProcess() -> GetProcessName();
-    // std::ofstream out("hello.txt", std::ios::app);
-    // if (out.is_open()){
-    //     if (creatorProcess != "Scintillation" && creatorProcess != "Cerenkov")
-    //         out << creatorProcess << std::endl;
-    // }
-    // out.close();   
-
     if (creatorProcess == "Cerenkov"){
-        cerenkovCount += 1.;
+        cerenkovCount += 1;
+        analysisManager -> FillH1(3, aStep -> GetTrack() -> GetKineticEnergy() / eV);
     }
-    // else if (creatorProcess != "Scintillation"){
-    //     // G4cout << "process: "<< creatorProcess << G4endl;
+
+    // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
+    // if (energyDeposited > 0){
+    //     fTotalEnergyDeposited += energyDeposited;
     // }
-
-    G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
-
-    if (energyDeposited > 0){
-        fTotalEnergyDeposited += energyDeposited;
-    }
 
     return true;
 }

@@ -7,6 +7,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
 #include "G4OpticalPhoton.hh"
+#include <unordered_set>
 
 
 class SensitiveDetector : public G4VSensitiveDetector{
@@ -18,10 +19,9 @@ private:
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
     virtual void Initialize(G4HCofThisEvent*) override;
     virtual void EndOfEvent(G4HCofThisEvent *) override;
-    G4double fTotalEnergyDeposited;
-    G4double count;
-    G4double photonsEnergy;
-    G4double cerenkovCount;
+    G4double fTotalEnergyDeposited, photonsEnergy;;
+    G4int count, cerenkovCount;
+    std::unordered_set<G4int> fGeneratedParticles;
 };
 
 #endif
