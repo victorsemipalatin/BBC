@@ -36,7 +36,7 @@ int main(int argc, char **argv){
 
     if(ui){
         UImanager -> ApplyCommand("/control/execute run.mac");
-        ui -> SessionStart();
+        // ui -> SessionStart();
     }
     else{
         G4String command = "/control/execute ";
