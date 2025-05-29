@@ -7,6 +7,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
 #include "G4OpticalPhoton.hh"
+#include <G4Electron.hh>
 #include <unordered_set>
 
 
@@ -19,7 +20,7 @@ private:
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
     virtual void Initialize(G4HCofThisEvent*) override;
     virtual void EndOfEvent(G4HCofThisEvent *) override;
-    G4double fTotalEnergyDeposited, photonsEnergy;;
+    G4double fTotalEnergyDeposited, photonsEnergy, elDep, photDep;
     G4int count, cerenkovCount;
     std::unordered_set<G4int> fGeneratedParticles;
 };
