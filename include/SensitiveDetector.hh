@@ -22,7 +22,6 @@ private:
     virtual void EndOfEvent(G4HCofThisEvent *) override;
     G4double fTotalEnergyDeposited, photonsEnergy, elDep, photDep;
     G4int count, cerenkovCount;
-    std::unordered_set<G4int> fGeneratedParticles;
 };
 
 #endif

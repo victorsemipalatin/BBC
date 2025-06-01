@@ -3,6 +3,7 @@
 
 PrimaryGenerator::PrimaryGenerator(){
     ParticleGun = new G4ParticleGun(1); // 1 частица в событии
+    count = 0;
 }
 
 
@@ -26,9 +27,11 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     // G4ThreeVector position(-30. * mm, 30. * mm, 100. * mm);
     G4ThreeVector momentum(0., cos(angle), -sin(angle));
 
-    ParticleGun -> SetParticlePosition(position);
-    ParticleGun -> SetParticleMomentumDirection(momentum);
-    ParticleGun -> SetParticleMomentum(4. * GeV);
+
+    G4double energy = 4. * GeV;
+    ParticleGun -> SetParticleEnergy(energy); // задание энергии первичной частицы
+    ParticleGun -> SetParticlePosition(position); // позиция первичной частицы
+    ParticleGun -> SetParticleMomentumDirection(momentum); // задание вектора импульса
     // ParticleGun -> SetParticleMomentum(50. * keV);
     ParticleGun -> SetParticleDefinition(particle);
 

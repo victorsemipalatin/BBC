@@ -14,6 +14,7 @@ class PrimaryGenerator: public G4VUserPrimaryGeneratorAction{
         virtual void GeneratePrimaries(G4Event *);
     private:
         G4ParticleGun *ParticleGun;
+        G4int count;
 };
 
 #endif

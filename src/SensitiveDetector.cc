@@ -33,39 +33,28 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr -> GetProcessName() : "primary";
     G4StepPoint *preStepPoint = aStep -> GetPreStepPoint();
 
-    // G4int trackID = track -> GetTrackID();
-    // if (fGeneratedParticles.find(trackID) == fGeneratedParticles.end()){
-    //     fGeneratedParticles.insert(trackID);
+    // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
+    // if (energyDeposited > 0) 
+    //     fTotalEnergyDeposited += energyDeposited;
+
+    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+        // if (energyDeposited > 0){
+        //     photDep += energyDeposited;
+        // }
+
+        // count += 1;
+        photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+        analysisManager -> FillH1(0, photonsEnergy / eV);
+    }
+
+    // if (creatorProcess == "Cerenkov"){
+    //     cerenkovCount += 1;
+    //     analysisManager -> FillH1(3, aStep -> GetTrack() -> GetKineticEnergy() / eV);
     // }
 
-    G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
-    if (energyDeposited > 0) 
-        fTotalEnergyDeposited += energyDeposited;
-    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-        if (energyDeposited > 0){
-            photDep += energyDeposited;
-        }
-
-        count += 1;
-        photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-        analysisManager -> FillH1(1, photonsEnergy / eV);
-    }
-
-    if (creatorProcess == "Cerenkov"){
-        cerenkovCount += 1;
-        analysisManager -> FillH1(3, aStep -> GetTrack() -> GetKineticEnergy() / eV);
-    }
-
-    if(aStep -> GetTrack() -> GetParticleDefinition() == G4Electron::ElectronDefinition()){
-        if (energyDeposited > 0)
-            elDep += energyDeposited;
-    }
-
-
-
-    // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
-    // if (energyDeposited > 0){
-    //     fTotalEnergyDeposited += energyDeposited;
+    // if(aStep -> GetTrack() -> GetParticleDefinition() == G4Electron::ElectronDefinition()){
+    //     if (energyDeposited > 0)
+    //         elDep += energyDeposited;
     // }
 
     return true;
@@ -73,11 +62,11 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
-    auto analysisManager = G4AnalysisManager::Instance();
+    // auto analysisManager = G4AnalysisManager::Instance();
 
-    analysisManager -> FillH1(0, count);
-    analysisManager -> FillH1(2, cerenkovCount);
-    analysisManager -> FillH1(4, photDep / eV);
-    analysisManager -> FillH1(5, elDep / keV);
-    analysisManager -> FillH1(6, fTotalEnergyDeposited);
+    // analysisManager -> FillH1(0, count);
+    // analysisManager -> FillH1(2, cerenkovCount);
+    // analysisManager -> FillH1(4, photDep / eV);
+    // analysisManager -> FillH1(5, elDep / keV);
+    // analysisManager -> FillH1(6, fTotalEnergyDeposited);
 }
