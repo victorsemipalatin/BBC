@@ -42,9 +42,10 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
         //     photDep += energyDeposited;
         // }
 
-        // count += 1;
+        count += 1;
         photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-        analysisManager -> FillH1(0, photonsEnergy / eV);
+        analysisManager -> FillH1(1, photonsEnergy / eV);
+        analysisManager -> FillH1(2, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
     }
 
     // if (creatorProcess == "Cerenkov"){
@@ -62,9 +63,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
-    // auto analysisManager = G4AnalysisManager::Instance();
+    auto analysisManager = G4AnalysisManager::Instance();
 
-    // analysisManager -> FillH1(0, count);
+    analysisManager -> FillH1(0, count);
     // analysisManager -> FillH1(2, cerenkovCount);
     // analysisManager -> FillH1(4, photDep / eV);
     // analysisManager -> FillH1(5, elDep / keV);

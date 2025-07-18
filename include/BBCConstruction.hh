@@ -21,6 +21,7 @@
 #include "G4SubtractionSolid.hh"
 #include "G4Trd.hh"
 #include "G4Tubs.hh"
+#include "G4Torus.hh"
 #include <vector>
 #include "G4ExtrudedSolid.hh"
 #include "G4UnionSolid.hh"

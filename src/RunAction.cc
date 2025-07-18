@@ -2,7 +2,6 @@
 
 
 RunAction::RunAction(){
-
 }
 
 
@@ -13,8 +12,9 @@ RunAction::~RunAction(){
 void RunAction::BeginOfRunAction(const G4Run *run){
     auto analysisManager = G4AnalysisManager::Instance();
 
-    // analysisManager -> CreateH1("PhotonsCount", "PhotonsCount", 100, 0, 210000.);
+    analysisManager -> CreateH1("PhotonsCount", "PhotonsCount", 100, 0, 50.);
     analysisManager -> CreateH1("PhotonsEnergy", "PhotonsEnergy", 100, 1.8, 2.71);
+    analysisManager -> CreateH1("WL", "PhotonsWl", 100, 450, 540);
     // analysisManager -> CreateH1("CherenkovCount", "CherenkovCount", 100, 3600., 9400.);
     // analysisManager -> CreateH1("CherenkovEnergy", "CherenkovEnergy", 100, 1.2, 6.4);
     // analysisManager -> CreateH1("Photons Deposited Energy", "photDep", 100, 0, 10000);
