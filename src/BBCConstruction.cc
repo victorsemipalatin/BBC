@@ -506,7 +506,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // auto physDetector = new G4PVPlacement(detectorMat, G4ThreeVector(-74.3 * mm, 149.7 * mm, 1.5), logicDetector1, "physDetector", logicWorld, false, 0, checkOverlaps);
     // **************************************** //
 
-    // ******** Тестирвоание волокна ********** //
+    // *** Тестирование волокна (прямой участок) **** //
     
     G4double l = 100.;
     auto solidCoreTest = new G4Tubs("SolidOutletCoreTest", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
@@ -535,13 +535,48 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
     auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
-    // auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -40), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
-    // auto physTester = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 1. * mm), logicDetector1, "physTester", logicWorld, false, 0, checkOverlaps);
-    // auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm -1. * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
+    auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -40), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
+    auto physTester = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + .55 * mm), logicDetector1, "physTester", logicWorld, false, 0, checkOverlaps);
+    auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm -.55 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
     new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
 
+    // **************************************** //
+
+    // *** Тестирование волокна (кольцо) **** //
+    // auto solidCoreTest = new G4Torus("SolidCoreTest", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
+    // auto solidCladdingTest = new G4Torus("SolidCladdingTest", 0.48 * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
+
+    // auto logicCoreTest = new G4LogicalVolume(solidCoreTest, PS, "logicCoreTest");
+    // auto logicCladdingTest = new G4LogicalVolume(solidCladdingTest, PMMA, "logicCladdingTest");
+
+    // auto solidTester = new G4Box("SolidTester", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
+    // auto logicTester = new G4LogicalVolume(solidTester, worldMat, "logicTester");
+    // logicDetector1 = logicTester;
+
+    // auto solidScint = new G4Box("SolidScint", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
+    // auto logicScint = new G4LogicalVolume(solidTester, scintillator, "logicScint");
+
+    // auto solidBox = new G4Box("SolidBox", .5 / 2 * cm, .5 * m, .5 * m);
+    // auto subs = new G4Torus("SolidCladdingTest", 0. * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
+    // auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
+    // auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
+
+    // logicCoreTest -> SetVisAttributes(shifterCore);
+    // logicCladdingTest -> SetVisAttributes(shifterCladding);
+    // logicTester -> SetVisAttributes(sipmAttr);
+    // logicScint -> SetVisAttributes(tileAttr);
+    // logicPlate -> SetVisAttributes(plateAttr);
+
+    // auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
+    // auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
+    // auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
+    // auto physTester = new G4PVPlacement(nullptr, G4ThreeVector(13.48 * mm, -.55 * mm, 0.), logicDetector1, "physTester", logicWorld, false, 0, checkOverlaps);
+    // auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(-13.48 * mm, -.55 * mm, 0.), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
+    // new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
 
     // **************************************** //
+
+
     
     return physWorld;
 }

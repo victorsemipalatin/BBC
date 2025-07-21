@@ -16,8 +16,8 @@ PrimaryGenerator::~PrimaryGenerator(){
 
 void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-    // G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
-    G4ParticleDefinition *particle = particleTable -> FindParticle("gamma");
+    G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
+    // G4ParticleDefinition *particle = particleTable -> FindParticle("gamma");
     // auto particle = G4OpticalPhoton::Definition();
     auto angle = 0. * degree;
     angle += 90. * degree;
@@ -29,11 +29,18 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     // G4ThreeVector position(-30. * mm, 30. * mm, 100. * mm);
     // G4ThreeVector momentum(0., cos(angle), -sin(angle));
 
-    G4ThreeVector position(0. * mm, 0. * mm, -105. * mm);
-    G4ThreeVector momentum(0., 0., 1.);
+    // **************** Tube **************** //
+    G4ThreeVector position(-100 * mm, 0, -100 / 2 * mm -.55 * mm);
+    G4ThreeVector momentum(1., 0., 0.);
+    // **************************************** //
+
+    // **************** Ring **************** //
+    // G4ThreeVector position(-13.48 * mm, -1. * mm, -100. * mm);
+    // G4ThreeVector momentum(0, 0., 1.);
+    // **************************************** //
 
 
-    G4double energy = 50. * keV;
+    G4double energy = 4. * GeV;
     ParticleGun -> SetParticleEnergy(energy); // задание энергии первичной частицы
     ParticleGun -> SetParticlePosition(position); // позиция первичной частицы
     ParticleGun -> SetParticleMomentumDirection(momentum); // задание вектора импульса
