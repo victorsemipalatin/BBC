@@ -37,6 +37,7 @@ class BBCConstruction: public G4VUserDetectorConstruction{
         virtual G4VPhysicalVolume *Construct();
     private:
         G4LogicalVolume *logicDetector1;
+        G4LogicalVolume *logicDetector2;
         G4LogicalVolume *logicDetector5;
         virtual void ConstructSDandField();
 };

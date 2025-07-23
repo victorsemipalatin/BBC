@@ -30,7 +30,7 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     // G4ThreeVector momentum(0., cos(angle), -sin(angle));
 
     // **************** Tube **************** //
-    G4ThreeVector position(-100 * mm, 0, -100 / 2 * mm -.55 * mm);
+    G4ThreeVector position(-100 * mm, 0, -900 / 2 * mm - 1.1 * mm);
     G4ThreeVector momentum(1., 0., 0.);
     // **************************************** //
 

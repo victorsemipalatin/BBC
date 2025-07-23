@@ -291,7 +291,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     auto shifterCladding = new G4VisAttributes(G4Color(75, 245, 66, .8));
     shifterCladding -> SetForceSolid(true);
 
-    auto plateAttr = new G4VisAttributes(G4Color(171, 176, 171, 1));
+    auto plateAttr = new G4VisAttributes(G4Color(171, 176, 171, 0.5));
     plateAttr -> SetForceSolid(true);
 
     auto sipmAttr = new G4VisAttributes(G4Color(255, 0, 0, 1));
@@ -508,36 +508,41 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     // *** Тестирование волокна (прямой участок) **** //
     
-    G4double l = 100.;
+    G4double l = 900.;
     auto solidCoreTest = new G4Tubs("SolidOutletCoreTest", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
     auto solidCladdingTest = new G4Tubs("SolidOutletCladdingTest", 0.48, .5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
 
     auto logicCoreTest = new G4LogicalVolume(solidCoreTest, PS, "logicCoreTest");
     auto logicCladdingTest = new G4LogicalVolume(solidCladdingTest, PMMA, "logicCladdingTest");
 
-    auto solidTester = new G4Box("SolidTester", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
-    auto logicTester = new G4LogicalVolume(solidTester, worldMat, "logicTester");
-    logicDetector1 = logicTester;
-
     auto solidScint = new G4Box("SolidScint", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
-    auto logicScint = new G4LogicalVolume(solidTester, scintillator, "logicScint");
+    auto logicScint = new G4LogicalVolume(solidScint, scintillator, "logicScint");
 
-    auto solidBox = new G4Box("SolidBox", .5 * m, .5 * m, 1. / 2 * cm);
+    auto solidBox = new G4Box("SolidBox", .5 * m, .5 * m, 1. / 2 * mm);
     auto subs = new G4Tubs("Subs", 0., 0.5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
     auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
     auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
 
+    auto solidDetector = new G4Tubs("SolidDetector", 0 * mm, 0.5 * mm, 1. * um, 0 * deg, 360 * deg);
+    auto logicStartDetector = new G4LogicalVolume(solidDetector, worldMat, "logicStartDetector");
+    logicDetector1 = logicStartDetector;
+
+    auto logicFinishDetector = new G4LogicalVolume(solidDetector, worldMat, "logicFinishDetector");
+    logicDetector2 = logicFinishDetector;
+
     logicCoreTest -> SetVisAttributes(shifterCore);
     logicCladdingTest -> SetVisAttributes(shifterCladding);
-    logicTester -> SetVisAttributes(sipmAttr);
+    logicStartDetector -> SetVisAttributes(sipmAttr);
+    logicFinishDetector -> SetVisAttributes(sipmAttr);
     logicScint -> SetVisAttributes(tileAttr);
     logicPlate -> SetVisAttributes(plateAttr);
 
     auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
     auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
-    auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -40), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
-    auto physTester = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + .55 * mm), logicDetector1, "physTester", logicWorld, false, 0, checkOverlaps);
-    auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm -.55 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
+    auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + .5 * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
+    auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 2. * um), logicDetector1, "physStartDetector", logicWorld, false, 0, checkOverlaps);
+    auto physFinishDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 2. * um), logicDetector2, "physFinishDetector", logicWorld, false, 0, checkOverlaps);
+    auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 1.1 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
     new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
 
     // **************************************** //
@@ -586,6 +591,10 @@ void BBCConstruction::ConstructSDandField(){
     auto sensDet1 = new SensitiveDetector("SensitiveDetector1");
     logicDetector1 -> SetSensitiveDetector(sensDet1);
     G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet1);
+
+    auto sensDet2 = new SensitiveDetector("SensitiveDetector2");
+    logicDetector2 -> SetSensitiveDetector(sensDet2);
+    G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet2);
 
     // auto sensDet5 = new SensitiveDetector("SensitiveDetector5");
     // logicDetector5 -> SetSensitiveDetector(sensDet5);
