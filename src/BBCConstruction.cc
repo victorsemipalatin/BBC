@@ -523,8 +523,8 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
     auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
 
-    auto solidDetector = new G4Tubs("SolidDetector", 0 * mm, 0.5 * mm, 1. * um, 0 * deg, 360 * deg);
-    auto logicStartDetector = new G4LogicalVolume(solidDetector, worldMat, "logicStartDetector");
+    auto solidDetector = new G4Tubs("SolidDetector", 0 * mm, 0.48 * mm, 1. * um, 0 * deg, 360 * deg);
+    auto logicStartDetector = new G4LogicalVolume(solidDetector, PMMA, "logicStartDetector");
     logicDetector1 = logicStartDetector;
 
     auto logicFinishDetector = new G4LogicalVolume(solidDetector, worldMat, "logicFinishDetector");
@@ -540,7 +540,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
     auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
     auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + .5 * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
-    auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 2. * um), logicDetector1, "physStartDetector", logicWorld, false, 0, checkOverlaps);
+    auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 2. * um), logicDetector1, "physStartDetector", logicCoreTest, false, 0, checkOverlaps);
     auto physFinishDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 2. * um), logicDetector2, "physFinishDetector", logicWorld, false, 0, checkOverlaps);
     auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 1.1 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
     new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
