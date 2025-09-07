@@ -3,9 +3,9 @@
 
 SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name){
     fTotalEnergyDeposited = 0.;
-    count = 0;
+    // count = 0;
     photonsEnergy = 0.;
-    cerenkovCount = 0.;
+    // cerenkovCount = 0.;
     elDep = 0;
     photDep = 0;
 }
@@ -18,9 +18,11 @@ SensitiveDetector::~SensitiveDetector(){
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *){
     fTotalEnergyDeposited = 0.;
-    count = 0;
+    // count = 0;
     photonsEnergy = 0.;
-    cerenkovCount = 0;
+    // cerenkovCount = 0;
+    // for(int i = 0; i < 80; i++)
+    //     count[i] = 0;
     elDep = 0;
     photDep = 0;
 }
@@ -35,30 +37,38 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     
     G4LogicalVolume* currentVolume = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetVolume() -> GetLogicalVolume();
     G4String volumeName = currentVolume -> GetName();
+    G4int number = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetCopyNumber();
 
-    if (volumeName == "logicStartDetector"){
-        if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-            // if (energyDeposited > 0){
-            //     photDep += energyDeposited;
-            // }
-            // count += 1;
-            photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-            // analysisManager -> FillH1(1, photonsEnergy / eV);
-            analysisManager -> FillH1(2, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
-        }
+    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+        photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+        // count[number] += 1;
+        analysisManager -> FillH1(2 + number, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
+
     }
 
-    if (volumeName == "logicFinishDetector"){
-        if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-            // if (energyDeposited > 0){
-            //     photDep += energyDeposited;
-            // }
-            // count += 1;
-            photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-            // analysisManager -> FillH1(1, photonsEnergy / eV);
-            analysisManager -> FillH1(3, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
-        }
-    }
+    // if (volumeName == "logicStartDetector"){
+    //     if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+    //         // if (energyDeposited > 0){
+    //         //     photDep += energyDeposited;
+    //         // }
+    //         // count += 1;
+    //         photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+    //         // analysisManager -> FillH1(1, photonsEnergy / eV);
+    //         analysisManager -> FillH1(2, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
+    //     }
+    // }
+
+    // if (volumeName == "logicFinishDetector"){
+    //     if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+    //         // if (energyDeposited > 0){
+    //         //     photDep += energyDeposited;
+    //         // }
+    //         // count += 1;
+    //         photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+    //         // analysisManager -> FillH1(1, photonsEnergy / eV);
+    //         analysisManager -> FillH1(3, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
+    //     }
+    // }
 
 
     // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
@@ -81,6 +91,8 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
     auto analysisManager = G4AnalysisManager::Instance();
+    // for(int i = 0; i < 80; i++)
+    //     analysisManager -> FillH1(2 + i, count[i]);
 
     // analysisManager -> FillH1(0, count);
     // analysisManager -> FillH1(2, cerenkovCount);

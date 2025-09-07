@@ -21,7 +21,8 @@ private:
     virtual void Initialize(G4HCofThisEvent*) override;
     virtual void EndOfEvent(G4HCofThisEvent *) override;
     G4double fTotalEnergyDeposited, photonsEnergy, elDep, photDep;
-    G4int count, cerenkovCount;
+    // G4int count, cerenkovCount;
+    // G4int count[80];
 };
 
 #endif

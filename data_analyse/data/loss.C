@@ -1,10 +1,18 @@
 void LightLoss(void){
-    const int n = 10;
-    double length[n] = {5, 6, 7, 8, 9, 10, 20, 30, 40, 90};
-    double photons_count[n] = {6829, 6869, 6833, 6730, 6650, 6737, 6587, 6340, 6193, 5529};
-    double error_length[n];
-	double error_count[n];
 
+    TFile *inputFile = new TFile("output_08.09.2025_01:20:39.root", "READ");
+    const int n = 79;
+    double length[n];
+    double photons_count[n];
+    for(int i = 1; i < n + 1; i++){
+        auto h = (TH1D*)inputFile -> Get(std::to_string(i).c_str());
+        int count = h -> GetEntries();
+        length[i - 1] = 1 * i;
+        photons_count[i - 1] = count;
+        std::cout << count << std::endl;
+    }
+    double error_length[n] = {0};
+	double error_count[n];
 	for(int i = 0; i < n; i++)
         error_count[i] = sqrt(photons_count[i]);
 

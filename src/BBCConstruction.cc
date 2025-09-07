@@ -285,10 +285,10 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     auto tileAttr = new G4VisAttributes(G4Color(192, 192, 192, 1.)); // серый цвет
     tileAttr -> SetForceSolid(true);
 
-    auto shifterCore = new G4VisAttributes(G4Color(0, 255, 0, 1));
+    auto shifterCore = new G4VisAttributes(G4Color(0, 255, 0, .5));
     shifterCore -> SetForceSolid(true);
 
-    auto shifterCladding = new G4VisAttributes(G4Color(75, 245, 66, .8));
+    auto shifterCladding = new G4VisAttributes(G4Color(75, 245, 66, .5));
     shifterCladding -> SetForceSolid(true);
 
     auto plateAttr = new G4VisAttributes(G4Color(171, 176, 171, 0.5));
@@ -540,8 +540,9 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
     auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
     auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + .5 * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
-    auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 2. * um), logicDetector1, "physStartDetector", logicCoreTest, false, 0, checkOverlaps);
-    auto physFinishDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 2. * um), logicDetector2, "physFinishDetector", logicWorld, false, 0, checkOverlaps);
+    for (G4int i = 0; i < 80; i++)
+        auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + i * 10 * mm), logicDetector1, "physStartDetector", logicCoreTest, false, i, checkOverlaps);
+    // auto physFinishDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 2. * um), logicDetector2, "physFinishDetector", logicWorld, false, 0, checkOverlaps);
     auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 1.1 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
     new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
 
