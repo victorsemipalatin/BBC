@@ -1,4 +1,5 @@
 #include "SensitiveDetector.hh"
+#include <set>
 
 
 SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name){
@@ -30,21 +31,21 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *){
 
 G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist){
     auto analysisManager = G4AnalysisManager::Instance();
-    G4Track* track = aStep -> GetTrack();
+    auto track = aStep -> GetTrack();
     auto creatorProcessPtr = track -> GetCreatorProcess();
     G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr -> GetProcessName() : "primary";
     G4StepPoint *preStepPoint = aStep -> GetPreStepPoint();
     
-    G4LogicalVolume* currentVolume = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetVolume() -> GetLogicalVolume();
-    G4String volumeName = currentVolume -> GetName();
-    G4int number = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetCopyNumber();
+    // ******* Тестирование оптоволокна ******* //
+    // G4LogicalVolume* currentVolume = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetVolume() -> GetLogicalVolume();
+    // G4String volumeName = currentVolume -> GetName();
+    // G4int number = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetCopyNumber();
 
-    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-        photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-        // count[number] += 1;
-        analysisManager -> FillH1(2 + number, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
-
-    }
+    // if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+    //     photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+    //     // count[number] += 1;
+    //     analysisManager -> FillH1(2 + number, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
+    // }
 
     // if (volumeName == "logicStartDetector"){
     //     if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
@@ -69,21 +70,37 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     //         analysisManager -> FillH1(3, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
     //     }
     // }
+    // **************************************** //
 
-
+    // *********** Энерговыделение *********** //
     // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
-    // if (energyDeposited > 0) 
-    //     fTotalEnergyDeposited += energyDeposited;
+    // // if (energyDeposited > 0) 
+    // //     fTotalEnergyDeposited += energyDeposited;
 
-    // if (creatorProcess == "Cerenkov"){
-    //     cerenkovCount += 1;
-    //     analysisManager -> FillH1(3, aStep -> GetTrack() -> GetKineticEnergy() / eV);
-    // }
-
+    // // if (creatorProcess == "Cerenkov"){
+    // //     cerenkovCount += 1;
+    // //     analysisManager -> FillH1(3, aStep -> GetTrack() -> GetKineticEnergy() / eV);
+    // // }
     // if(aStep -> GetTrack() -> GetParticleDefinition() == G4Electron::ElectronDefinition()){
-    //     if (energyDeposited > 0)
+    //     if (energyDeposited > 0){
     //         elDep += energyDeposited;
+    //         if (track -> GetCreatorProcess() -> GetProcessName() == "phot")
+    //             G4cout << elDep / keV << " phot" << G4endl;
+    //         else
+    //             G4cout << elDep / keV << " compt" << G4endl;
+    //     }
     // }
+    // **************************************** //
+
+    // ********* Разлёт гамма-квантов ********* //
+    auto physVolume = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetVolume();
+    G4String volumeName = physVolume -> GetName();
+    G4int number = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetCopyNumber();
+    if (creatorProcess == "primary")
+        if (volumeName != "physTile1")
+            analysisManager -> FillH1(number, 1);
+    // **************************************** //
+
 
     return true;
 }
@@ -98,5 +115,8 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
     // analysisManager -> FillH1(2, cerenkovCount);
     // analysisManager -> FillH1(4, photDep / eV);
     // analysisManager -> FillH1(5, elDep / keV);
-    // analysisManager -> FillH1(6, fTotalEnergyDeposited);
+
+    // *********** Энерговыделение *********** //
+    // analysisManager -> FillH1(0, elDep / keV);
+    // **************************************** //
 }

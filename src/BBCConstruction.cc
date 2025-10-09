@@ -24,7 +24,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     mptWorld -> AddProperty("RINDEX", energy, reflectionIndexworld, 2);
     worldMat -> SetMaterialPropertiesTable(mptWorld);
 
-    G4Box *solidWorld = new G4Box("SolidWorld", .5 * m, .5 * m, .5 * m);
+    G4Box *solidWorld = new G4Box("SolidWorld", 5. * m, 5. * m, 5. * m);
     G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat, "logicWorld");
     G4VPhysicalVolume *physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, checkOverlaps);
 
@@ -352,51 +352,53 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // *********** ПРИМИТИВЫ GEANT4 *********** //
 
     // **************** Тайл 0 **************** //
-    // G4int shift = 1;
-    // G4int sectors_num = 1;
-    // auto prismSolid = new G4Trd("Tile1", 17.9 / 2 * mm, 39.66 / 2 * mm, 10. / 2 * mm, 10. / 2 * mm, 54.7 / 2 * mm);
+    G4int shift = 1;
+    G4int sectors_num = 1;
+    auto prismSolid = new G4Trd("Tile1", 17.9 / 2 * mm, 39.66 / 2 * mm, 10. / 2 * mm, 10. / 2 * mm, 54.7 / 2 * mm);
 
-    // auto cylinder = new G4Tubs("Сylinder", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
+    auto cylinder = new G4Tubs("Сylinder", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
 
-    // auto rotationMatrix = new G4RotationMatrix();
-    // rotationMatrix -> rotateX(90. * deg);
-    // auto subtraction1_0 = new G4SubtractionSolid("Subtraction1", prismSolid, cylinder, rotationMatrix, G4ThreeVector(5.67 * mm, 0., -23.35 * mm));
-    // auto subtraction2_0 = new G4SubtractionSolid("Subtraction2", subtraction1_0, cylinder, rotationMatrix, G4ThreeVector(-5.67 * mm, 0., -23.35 * mm));
-    // auto subtraction3_0 = new G4SubtractionSolid("Subtraction3", subtraction2_0, cylinder, rotationMatrix, G4ThreeVector(14.89 * mm, 0., 23.35 * mm));
-    // auto subtraction4_0 = new G4SubtractionSolid("Subtraction4", subtraction3_0, cylinder, rotationMatrix, G4ThreeVector(-14.89 * mm, 0., 23.35 * mm));
+    auto rotationMatrix = new G4RotationMatrix();
+    rotationMatrix -> rotateX(90. * deg);
+    auto subtraction1_0 = new G4SubtractionSolid("Subtraction1", prismSolid, cylinder, rotationMatrix, G4ThreeVector(5.67 * mm, 0., -23.35 * mm));
+    auto subtraction2_0 = new G4SubtractionSolid("Subtraction2", subtraction1_0, cylinder, rotationMatrix, G4ThreeVector(-5.67 * mm, 0., -23.35 * mm));
+    auto subtraction3_0 = new G4SubtractionSolid("Subtraction3", subtraction2_0, cylinder, rotationMatrix, G4ThreeVector(14.89 * mm, 0., 23.35 * mm));
+    auto subtraction4_0 = new G4SubtractionSolid("Subtraction4", subtraction3_0, cylinder, rotationMatrix, G4ThreeVector(-14.89 * mm, 0., 23.35 * mm));
 
-    // auto tube_0 = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 7. / 2 * mm, 0 * deg, 360 * deg);
-    // auto subtraction5_0 = new G4SubtractionSolid("Subtraction5", subtraction4_0, tube_0, rotationMatrix, G4ThreeVector(0., 3. * mm, 11. * mm));
+    auto tube_0 = new G4Tubs("Tube", 12.75 * mm, 14.35 * mm, 7. / 2 * mm, 0 * deg, 360 * deg);
+    auto subtraction5_0 = new G4SubtractionSolid("Subtraction5", subtraction4_0, tube_0, rotationMatrix, G4ThreeVector(0., 3. * mm, 11. * mm));
 
-    // std::vector<G4TwoVector> polygon_0;
-    // G4double delta = 2.7;
-    // polygon_0.push_back(G4TwoVector(0., 0.));
-    // polygon_0.push_back(G4TwoVector(3.2 * mm, 0.));
-    // polygon_0.push_back(G4TwoVector((6.2 + delta * 1.455) * mm, (2.08 + delta) * mm));
-    // polygon_0.push_back(G4TwoVector((3.0 + delta * 1.455) * mm, (2.08 + delta) * mm));
-    // G4double halfZ =  7 / 2 * mm;
-    // auto prism_0 = new G4ExtrudedSolid("Prism", polygon_0, halfZ, G4TwoVector(0, 0), 1.0, G4TwoVector(0, 0), 1.0);
+    std::vector<G4TwoVector> polygon_0;
+    G4double delta = 2.7;
+    polygon_0.push_back(G4TwoVector(0., 0.));
+    polygon_0.push_back(G4TwoVector(3.2 * mm, 0.));
+    polygon_0.push_back(G4TwoVector((6.2 + delta * 1.455) * mm, (2.08 + delta) * mm));
+    polygon_0.push_back(G4TwoVector((3.0 + delta * 1.455) * mm, (2.08 + delta) * mm));
+    G4double halfZ =  7 / 2 * mm;
+    auto prism_0 = new G4ExtrudedSolid("Prism", polygon_0, halfZ, G4TwoVector(0, 0), 1.0, G4TwoVector(0, 0), 1.0);
 
-    // auto rotation_0 = new G4RotationMatrix();
-    // rotation_0 -> rotateX(90 * deg);
-    // rotation_0 -> rotateY(-180 * deg);
+    auto rotation_0 = new G4RotationMatrix();
+    rotation_0 -> rotateX(90 * deg);
+    rotation_0 -> rotateY(-180 * deg);
     
-    // auto solidTile0 = new G4SubtractionSolid("SolidTile0", subtraction5_0, prism_0, rotation_0, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
+    auto solidTile0 = new G4SubtractionSolid("SolidTile0", subtraction5_0, prism_0, rotation_0, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
 
-    // auto logicTile0 = new G4LogicalVolume(solidTile0, scintillator, "logicTile1");
+    auto logicTile0 = new G4LogicalVolume(solidTile0, scintillator, "logicTile1");
 
-    // // logicTile0 -> SetVisAttributes(tileAttr);
+    logicDetector1 = logicTile0;
 
-    // G4double r = 73.35;
-    // for (G4int i = 0; i < sectors_num; i++){
-    //     auto rotm = new G4RotationMatrix();
-    //     rotm -> rotateX(90 * deg);
-    //     rotm -> rotateZ((22.5 * i) * deg);
-    //     rotm -> rotateZ(180. * deg);
-    //     auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r +  shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile0, "physTile1", logicWorld, false, i, checkOverlaps);
-    //     new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
-    //     new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
-    // }
+    logicTile0 -> SetVisAttributes(tileAttr);
+
+    G4double r = 73.35;
+    for (G4int i = 0; i < sectors_num; i++){
+        auto rotm = new G4RotationMatrix();
+        rotm -> rotateX(90 * deg);
+        rotm -> rotateZ((22.5 * i) * deg);
+        rotm -> rotateZ(180. * deg);
+        auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r +  shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile0, "physTile1", logicWorld, false, i, checkOverlaps);
+        new G4LogicalBorderSurface("scintInSurface", physTile1, physWorld, opInSurface);
+        new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile1, opOutSurface);
+    }
 
     // G4double l = 97.;
     // auto solidRingCore0 = new G4Torus("SolidRingCore0", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 335 * deg); 
@@ -430,6 +432,24 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     //     auto physCladding1 = new G4PVPlacement(rotationMatrix, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, r + 11 + shift * cos(22.5 * PI / 180 * i) * mm, 1.5), logicCladding0, "physCladding1", logicWorld, false, i, checkOverlaps);
     //     new G4LogicalBorderSurface("shifterSurface", physWorld, physCore1, dd);
     // }
+    // **************************************** //
+
+    // **************** Проверка разлётов гамма-квантов **************** //
+    auto solidBox = new G4Box("SolidBox", 1. / 2 * cm, 10. / 2 * cm, 10. / 2 * cm);
+    auto logicPlate = new G4LogicalVolume(solidBox, worldMat, "logicPlate");
+    logicDetector2 = logicPlate;
+    logicPlate -> SetVisAttributes(plateAttr);
+    // for(int i = 0; i < 6; i++)
+    auto physPlate1 = new G4PVPlacement(nullptr, G4ThreeVector(-4.5 * cm, 7.5 * cm, 0), logicPlate, "leftPlate", logicWorld, false, 0, checkOverlaps);
+    auto physPlate2 = new G4PVPlacement(nullptr, G4ThreeVector(4.5 * cm, 7.5 * cm, 0), logicPlate, "rightPlate", logicWorld, false, 1, checkOverlaps);
+    auto rotm1 = new G4RotationMatrix();
+    rotm1 -> rotateY(90. * deg);
+    auto physPlate3 = new G4PVPlacement(rotm1, G4ThreeVector(0, 7.5 * cm, -5.5 * cm), logicPlate, "backPlate", logicWorld, false, 2, checkOverlaps);
+    auto physPlate4 = new G4PVPlacement(rotm1, G4ThreeVector(0, 7.5 * cm, 5.5 * cm), logicPlate, "frontPlate", logicWorld, false, 3, checkOverlaps);
+    auto rotm2 = new G4RotationMatrix();
+    rotm2 -> rotateZ(90. * deg);
+    auto physPlate5 = new G4PVPlacement(rotm2, G4ThreeVector(0, 2. * cm, 0), logicPlate, "bottomPlate", logicWorld, false, 4, checkOverlaps);
+    auto physPlate6 = new G4PVPlacement(rotm2, G4ThreeVector(0, (5.5 + 7.5) * cm, 0), logicPlate, "topPlate", logicWorld, false, 5, checkOverlaps);
     // **************************************** //
 
     // ********** СВИНЦОВАЯ ПЛАСТИНА ********* //
@@ -508,43 +528,52 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     // *** Тестирование волокна (прямой участок) **** //
     
-    G4double l = 900.;
-    auto solidCoreTest = new G4Tubs("SolidOutletCoreTest", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
-    auto solidCladdingTest = new G4Tubs("SolidOutletCladdingTest", 0.48, .5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
+    // G4double l = 900.;
+    // auto solidCoreTest = new G4Tubs("SolidOutletCoreTest", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
+    // auto solidCladdingTest = new G4Tubs("SolidOutletCladdingTest", 0.48, .5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
 
-    auto logicCoreTest = new G4LogicalVolume(solidCoreTest, PS, "logicCoreTest");
-    auto logicCladdingTest = new G4LogicalVolume(solidCladdingTest, PMMA, "logicCladdingTest");
+    // auto logicCoreTest = new G4LogicalVolume(solidCoreTest, PS, "logicCoreTest");
+    // auto logicCladdingTest = new G4LogicalVolume(solidCladdingTest, PMMA, "logicCladdingTest");
 
-    auto solidScint = new G4Box("SolidScint", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
-    auto logicScint = new G4LogicalVolume(solidScint, scintillator, "logicScint");
+    // auto solidScint = new G4Box("SolidScint", 1. / 2 * mm, 1. / 2 * mm, 1. / 2 * mm);
+    // auto logicScint = new G4LogicalVolume(solidScint, scintillator, "logicScint");
 
-    auto solidBox = new G4Box("SolidBox", .5 * m, .5 * m, 1. / 2 * mm);
-    auto subs = new G4Tubs("Subs", 0., 0.5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
-    auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
-    auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
+    // auto solidBox = new G4Box("SolidBox", .5 * m, .5 * m, 1. / 2 * mm);
+    // auto subs = new G4Tubs("Subs", 0., 0.5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
+    // auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
+    // auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
 
-    auto solidDetector = new G4Tubs("SolidDetector", 0 * mm, 0.48 * mm, 1. * um, 0 * deg, 360 * deg);
-    auto logicStartDetector = new G4LogicalVolume(solidDetector, PMMA, "logicStartDetector");
-    logicDetector1 = logicStartDetector;
+    // auto solidDetector = new G4Tubs("SolidDetector", 0 * mm, 0.48 * mm, 1. * um, 0 * deg, 360 * deg);
+    // auto logicStartDetector = new G4LogicalVolume(solidDetector, PMMA, "logicStartDetector");
+    // logicDetector1 = logicStartDetector;
 
-    auto logicFinishDetector = new G4LogicalVolume(solidDetector, worldMat, "logicFinishDetector");
-    logicDetector2 = logicFinishDetector;
+    // auto logicFinishDetector = new G4LogicalVolume(solidDetector, worldMat, "logicFinishDetector");
+    // logicDetector2 = logicFinishDetector;
 
-    logicCoreTest -> SetVisAttributes(shifterCore);
-    logicCladdingTest -> SetVisAttributes(shifterCladding);
-    logicStartDetector -> SetVisAttributes(sipmAttr);
-    logicFinishDetector -> SetVisAttributes(sipmAttr);
-    logicScint -> SetVisAttributes(tileAttr);
-    logicPlate -> SetVisAttributes(plateAttr);
+    // logicCoreTest -> SetVisAttributes(shifterCore);
+    // logicCladdingTest -> SetVisAttributes(shifterCladding);
+    // logicStartDetector -> SetVisAttributes(sipmAttr);
+    // logicFinishDetector -> SetVisAttributes(sipmAttr);
+    // logicScint -> SetVisAttributes(tileAttr);
+    // logicPlate -> SetVisAttributes(plateAttr);
 
-    auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
-    auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
-    auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + .5 * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
-    for (G4int i = 0; i < 80; i++)
-        auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + i * 10 * mm), logicDetector1, "physStartDetector", logicCoreTest, false, i, checkOverlaps);
-    // auto physFinishDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., l / 2 * mm + 2. * um), logicDetector2, "physFinishDetector", logicWorld, false, 0, checkOverlaps);
-    auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 1.1 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
-    new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
+    // Светим в торец волокна
+    // auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
+    // auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
+    // auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + .5 * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
+    // for (G4int i = 0; i < 80; i++)
+    //     auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + i * 10 * mm), logicDetector1, "physStartDetector", logicCoreTest, false, i, checkOverlaps);
+    // auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm - 1.1 * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
+    // new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
+
+    // Светим в боковую часть
+    // auto physCoreTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCoreTest, "physCoreTest", logicWorld, false, 0, checkOverlaps);
+    // auto physCladdingTest = new G4PVPlacement(nullptr, G4ThreeVector(), logicCladdingTest, "physCladdingTest", logicWorld, false, 0, checkOverlaps);
+    // auto physPlate = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + 10. * mm), logicPlate, "physPlate", logicWorld, false, 0, checkOverlaps);
+    // // for (G4int i = 0; i < 80; i++)
+    // //     auto physStartDetector = new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -l / 2 * mm + i * 10 * mm), logicDetector1, "physStartDetector", logicCoreTest, false, i, checkOverlaps);
+    // auto physScint = new G4PVPlacement(nullptr, G4ThreeVector(0., 5. * mm, -l / 2 * mm + 5. * mm), logicScint, "physScint", logicWorld, false, 0, checkOverlaps);
+    // new G4LogicalBorderSurface("shifterSurface", physWorld, physCoreTest, dd);
 
     // **************************************** //
 

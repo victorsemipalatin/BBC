@@ -5,6 +5,7 @@
 #include "G4ParticleGun.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
+#include "Randomize.hh"
 
 
 class PrimaryGenerator: public G4VUserPrimaryGeneratorAction{
