@@ -11,14 +11,12 @@ ActionInitialization::~ActionInitialization(){
 
 
 void ActionInitialization::BuildForMaster() const{
-    RunAction *runAction = new RunAction();
-    SetUserAction(runAction);
+    SetUserAction(new RunAction());
 }
 
 
 void ActionInitialization::Build() const{
-    PrimaryGenerator *generator = new PrimaryGenerator();
-    SetUserAction(generator);
-    auto runAction = new RunAction();
-    SetUserAction(runAction);
+    SetUserAction(new PrimaryGenerator());
+    SetUserAction(new RunAction());
+    SetUserAction(new EventAction());
 }

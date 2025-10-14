@@ -15,14 +15,18 @@ class SensitiveDetector : public G4VSensitiveDetector{
 public:
     SensitiveDetector(G4String);
     ~SensitiveDetector();
+    static G4double GetCount() { return count; }
 
 private:
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
     virtual void Initialize(G4HCofThisEvent*) override;
     virtual void EndOfEvent(G4HCofThisEvent *) override;
     G4double fTotalEnergyDeposited, photonsEnergy, elDep, photDep;
-    // G4int count, cerenkovCount;
-    // G4int count[80];
+    G4int check;
+    // static G4ThreadLocal G4double count;
+    static G4ThreadLocal G4double count;
+    std::unordered_set<G4int> countedTracks;
+
 };
 
 #endif

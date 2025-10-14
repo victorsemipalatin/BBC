@@ -32,19 +32,19 @@ void RunAction::BeginOfRunAction(const G4Run *run){
     // **************************************** //
 
     // ********* Разлёт гамма-квантов ********* //
-    analysisManager -> CreateH1("left", "left", 3, 0, 2);
-    analysisManager -> CreateH1("rigt", "rigt", 3, 0, 2);
-    analysisManager -> CreateH1("back", "back", 3, 0, 2);
-    analysisManager -> CreateH1("front", "front", 3, 0, 2);
-    analysisManager -> CreateH1("bottom", "bottom", 3, 0, 2);
-    analysisManager -> CreateH1("top", "top", 3, 0, 2);
+    // analysisManager -> CreateH1("left", "left", 3, 0, 2);
+    // analysisManager -> CreateH1("rigt", "rigt", 3, 0, 2);
+    // analysisManager -> CreateH1("back", "back", 3, 0, 2);
+    // analysisManager -> CreateH1("front", "front", 3, 0, 2);
+    // analysisManager -> CreateH1("bottom", "bottom", 3, 0, 2);
+    // analysisManager -> CreateH1("top", "top", 3, 0, 2);
     // **************************************** //
 
-    time_t now = time(nullptr);
-    tm* ltm = localtime(&now);
-    char buffer[80];
-    strftime(buffer, sizeof(buffer), "%d.%m.%Y_%H:%M:%S", ltm);
-    analysisManager -> OpenFile("/home/e/BBC/data_analyse/data/output_" + std::string(buffer) + ".root");
+    // time_t now = time(nullptr);
+    // tm* ltm = localtime(&now);
+    // char buffer[80];
+    // strftime(buffer, sizeof(buffer), "%d.%m.%Y_%H:%M:%S", ltm);
+    // analysisManager -> OpenFile("/home/e/BBC/data_analyse/data/output_" + std::string(buffer) + ".root");
 }
 
 
