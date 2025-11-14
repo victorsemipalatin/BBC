@@ -1,10 +1,9 @@
 #include "SensitiveDetector.hh"
 
-
 G4ThreadLocal G4double SensitiveDetector::count = 0.;
 
-
-SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name){
+SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name)
+{
     fTotalEnergyDeposited = 0.;
     photonsEnergy = 0.;
     // cerenkovCount = 0.;
@@ -12,13 +11,13 @@ SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name)
     photDep = 0;
 }
 
-
-SensitiveDetector::~SensitiveDetector(){
+SensitiveDetector::~SensitiveDetector()
+{
     G4cout << "SensitiveDetector killed" << G4endl;
 }
 
-
-void SensitiveDetector::Initialize(G4HCofThisEvent *){
+void SensitiveDetector::Initialize(G4HCofThisEvent *)
+{
     fTotalEnergyDeposited = 0.;
     count = 0.;
     photonsEnergy = 0.;
@@ -28,14 +27,14 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *){
     countedTracks.clear();
 }
 
-
-G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist){
+G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
+{
     auto analysisManager = G4AnalysisManager::Instance();
-    auto track = aStep -> GetTrack();
-    auto creatorProcessPtr = track -> GetCreatorProcess();
-    G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr -> GetProcessName() : "primary";
-    G4StepPoint *preStepPoint = aStep -> GetPreStepPoint();
-    
+    auto track = aStep->GetTrack();
+    auto creatorProcessPtr = track->GetCreatorProcess();
+    G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr->GetProcessName() : "primary";
+    G4StepPoint *preStepPoint = aStep->GetPreStepPoint();
+
     // ******* Тестирование оптоволокна ******* //
     // G4LogicalVolume* currentVolume = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetVolume() -> GetLogicalVolume();
     // G4String volumeName = currentVolume -> GetName();
@@ -55,10 +54,13 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     // **************************************** //
 
     // ********** Тестирование тайла  ********** //
-    if(aStep -> GetTrack() -> GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
-        if (aStep -> IsFirstStepInVolume()){
-            auto trackID = track -> GetTrackID();
-            if (countedTracks.find(trackID) == countedTracks.end()){
+    if (aStep->GetTrack()->GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
+    {
+        if (aStep->IsFirstStepInVolume())
+        {
+            auto trackID = track->GetTrackID();
+            if (countedTracks.find(trackID) == countedTracks.end())
+            {
                 countedTracks.insert(trackID);
                 count += 1.;
             }
@@ -68,7 +70,7 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
     // *********** Энерговыделение *********** //
     // G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
-    // if (energyDeposited > 0) 
+    // if (energyDeposited > 0)
     //     fTotalEnergyDeposited += energyDeposited;
 
     // // if (creatorProcess == "Cerenkov"){
@@ -109,12 +111,11 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     //     }
     // **************************************** //
 
-
     return true;
 }
 
-
-void SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
+void SensitiveDetector::EndOfEvent(G4HCofThisEvent *)
+{
     auto analysisManager = G4AnalysisManager::Instance();
     // for(int i = 0; i < 80; i++)
     //     analysisManager -> FillH1(2 + i, count[i]);

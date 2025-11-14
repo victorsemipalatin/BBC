@@ -9,15 +9,16 @@
 #include "SensitiveDetector.hh"
 #include "Randomize.hh"
 
+class PrimaryGenerator : public G4VUserPrimaryGeneratorAction
+{
+public:
+    PrimaryGenerator();
+    ~PrimaryGenerator();
+    virtual void GeneratePrimaries(G4Event *);
 
-class PrimaryGenerator: public G4VUserPrimaryGeneratorAction{
-    public:
-        PrimaryGenerator();
-        ~PrimaryGenerator();
-        virtual void GeneratePrimaries(G4Event *);
-    private:
-        G4ParticleGun *ParticleGun;
-        G4int count;
+private:
+    G4ParticleGun *ParticleGun;
+    G4int count;
 };
 
 #endif

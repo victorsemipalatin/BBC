@@ -8,18 +8,20 @@
 #include "G4UnitsTable.hh"
 #include "SensitiveDetector.hh"
 #include "RunAction.hh"
-#include "BBCConstruction.hh"
+// #include "BBCConstruction.hh"
+#include "DetectorConstruction.hh"
 
 #include <fstream>
 #include <string>
 
-class EventAction : public G4UserEventAction {
+class EventAction : public G4UserEventAction
+{
 public:
     EventAction();
     ~EventAction() override;
 
-    void BeginOfEventAction(const G4Event*) override;
-    void EndOfEventAction(const G4Event*) override;
+    void BeginOfEventAction(const G4Event *) override;
+    void EndOfEventAction(const G4Event *) override;
 
 private:
     G4String fOutputFileName;

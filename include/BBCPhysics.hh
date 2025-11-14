@@ -7,11 +7,11 @@
 #include "G4RadioactiveDecayPhysics.hh"
 #include "FTFP_BERT.hh"
 
-
-class PhysicsList: public FTFP_BERT{
-    public:
-        PhysicsList();
-        ~PhysicsList();
+class PhysicsList : public FTFP_BERT
+{
+public:
+    PhysicsList();
+    ~PhysicsList();
 };
 
 #endif

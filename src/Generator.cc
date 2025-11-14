@@ -1,24 +1,24 @@
 #include "Generator.hh"
 
-
-PrimaryGenerator::PrimaryGenerator(){
+PrimaryGenerator::PrimaryGenerator()
+{
     ParticleGun = new G4ParticleGun(1); // 1 частица в событии
 }
 
-
-PrimaryGenerator::~PrimaryGenerator(){
+PrimaryGenerator::~PrimaryGenerator()
+{
     delete ParticleGun;
     G4cout << "PrimaryGenerator killed" << G4endl;
 }
 
-
-struct SpectrumPoint {
+struct SpectrumPoint
+{
     double E;
     double counts;
 };
 
-
-double fastRand() {
+double fastRand()
+{
     static unsigned long long seed = 88172645463325252ull;
     seed ^= seed << 13;
     seed ^= seed >> 7;
@@ -26,14 +26,15 @@ double fastRand() {
     return (seed % 1000000) / 1000000.0;
 }
 
-
-double linearInterp(double x, double x1, double y1, double x2, double y2) {
-    if (x2 == x1) return y1;
+double linearInterp(double x, double x1, double y1, double x2, double y2)
+{
+    if (x2 == x1)
+        return y1;
     return y1 + (y2 - y1) * (x - x1) / (x2 - x1);
 }
 
-
-std::vector<double> buildCDF(const std::vector<SpectrumPoint>& spectrum, int nSteps = 2000, double scale = 0.12) {
+std::vector<double> buildCDF(const std::vector<SpectrumPoint> &spectrum, int nSteps = 2000, double scale = 0.12)
+{
     double Emin = spectrum.front().E;
     double Emax = spectrum.back().E;
     double step = (Emax - Emin) / nSteps;
@@ -41,18 +42,21 @@ std::vector<double> buildCDF(const std::vector<SpectrumPoint>& spectrum, int nSt
     std::vector<double> cdf(nSteps + 1);
     double integral = 0.0;
 
-    for (int i = 0; i <= nSteps; ++i) {
+    for (int i = 0; i <= nSteps; ++i)
+    {
         double E = Emin + i * step;
 
         auto it = std::upper_bound(spectrum.begin(), spectrum.end(), E,
-            [](double value, const SpectrumPoint& p) { return value < p.E; });
+                                   [](double value, const SpectrumPoint &p)
+                                   { return value < p.E; });
 
         double y;
         if (it == spectrum.begin())
             y = std::exp(scale * it->counts);
         else if (it == spectrum.end())
             y = std::exp(scale * (it - 1)->counts);
-        else {
+        else
+        {
             auto p1 = it - 1;
             auto p2 = it;
             double y1 = std::exp(scale * p1->counts);
@@ -64,13 +68,14 @@ std::vector<double> buildCDF(const std::vector<SpectrumPoint>& spectrum, int nSt
         cdf[i] = integral;
     }
 
-    for (auto& v : cdf)
+    for (auto &v : cdf)
         v /= integral;
 
     return cdf;
 }
 
-double randomEnergy(const std::vector<SpectrumPoint>& spectrum, const std::vector<double>& cdf, int nSteps = 2000) {
+double randomEnergy(const std::vector<SpectrumPoint> &spectrum, const std::vector<double> &cdf, int nSteps = 2000)
+{
     double r = fastRand();
     double Emin = spectrum.front().E;
     double Emax = spectrum.back().E;
@@ -78,8 +83,10 @@ double randomEnergy(const std::vector<SpectrumPoint>& spectrum, const std::vecto
 
     auto it = std::lower_bound(cdf.begin(), cdf.end(), r);
     int idx = std::distance(cdf.begin(), it);
-    if (idx <= 0) return Emin;
-    if (idx >= (int)cdf.size()) return Emax;
+    if (idx <= 0)
+        return Emin;
+    if (idx >= (int)cdf.size())
+        return Emax;
 
     double c1 = cdf[idx - 1];
     double c2 = cdf[idx];
@@ -90,18 +97,18 @@ double randomEnergy(const std::vector<SpectrumPoint>& spectrum, const std::vecto
     return E;
 }
 
-
-void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
+void PrimaryGenerator::GeneratePrimaries(G4Event *Event)
+{
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
     // G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
-    G4ParticleDefinition *particle = particleTable -> FindParticle("gamma");
+    G4ParticleDefinition *particle = particleTable->FindParticle("gamma");
     // auto particle = G4OpticalPhoton::Definition();
 
     // **Тестирование всей поверхности 5 тайла** //
     auto angle = 0. * degree;
     angle += 90. * degree;
     G4int batch_size = 10000;
-    G4long eventID = Event -> GetEventID();
+    G4long eventID = Event->GetEventID();
 
     const G4int NX = 30;
     const G4int NY = 30;
@@ -122,10 +129,11 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     const G4double yr = y_min + y_step * iy;
 
     G4double radius = 2.5;
-    G4double xi =  (2 * G4UniformRand() -1.0) * radius;
-    G4double yi = (2 * G4UniformRand() -1.0) * radius;
-    while ((xi * xi + yi * yi) > radius * radius){
-        xi = (2 * G4UniformRand() -1.0) * radius;
+    G4double xi = (2 * G4UniformRand() - 1.0) * radius;
+    G4double yi = (2 * G4UniformRand() - 1.0) * radius;
+    while ((xi * xi + yi * yi) > radius * radius)
+    {
+        xi = (2 * G4UniformRand() - 1.0) * radius;
         yi = (2 * G4UniformRand() - 1.0) * radius;
     }
 
@@ -135,11 +143,7 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     G4ThreeVector momentum(0., 0, 1);
 
     std::vector<SpectrumPoint> spectrum = {
-    {0,0},{2,0},{3.6,62},{4,66},{6,83.5},{8,88.3},{10,88.3},{12,87.5},
-    {14,86.3},{16,85},{18,84},{20,83},{21,83},{21.5,85},{22.1,102},
-    {22.6,92},{23,82},{24.5,82},{25,90},{26,80},{28,79},{30,78},{32,77},
-    {34,76},{36,75},{38,74},{40,73},{42,72},{44,71},{46,69},{48,65},{49,60},{50,44}
-    };
+        {0, 0}, {2, 0}, {3.6, 62}, {4, 66}, {6, 83.5}, {8, 88.3}, {10, 88.3}, {12, 87.5}, {14, 86.3}, {16, 85}, {18, 84}, {20, 83}, {21, 83}, {21.5, 85}, {22.1, 102}, {22.6, 92}, {23, 82}, {24.5, 82}, {25, 90}, {26, 80}, {28, 79}, {30, 78}, {32, 77}, {34, 76}, {36, 75}, {38, 74}, {40, 73}, {42, 72}, {44, 71}, {46, 69}, {48, 65}, {49, 60}, {50, 44}};
     double scale = 0.12;
     int nSteps = 50000;
     auto cdf = buildCDF(spectrum, nSteps, scale);
@@ -200,15 +204,14 @@ void PrimaryGenerator::GeneratePrimaries(G4Event *Event){
     // G4ThreeVector momentum(0., 0., -1.);
     // **************************************** //
 
-
     // G4double energy = 22. * keV;
     // G4double energy = 15. * keV;
     // G4double energy = 2.7899499 * eV;
-    ParticleGun -> SetParticleEnergy(energy); // задание энергии первичной частицы
-    ParticleGun -> SetParticlePosition(position); // позиция первичной частицы
-    ParticleGun -> SetParticleMomentumDirection(momentum); // задание вектора импульса
-    ParticleGun -> SetParticleDefinition(particle);
-    ParticleGun -> GeneratePrimaryVertex(Event);
+    ParticleGun->SetParticleEnergy(energy);              // задание энергии первичной частицы
+    ParticleGun->SetParticlePosition(position);          // позиция первичной частицы
+    ParticleGun->SetParticleMomentumDirection(momentum); // задание вектора импульса
+    ParticleGun->SetParticleDefinition(particle);
+    ParticleGun->GeneratePrimaryVertex(Event);
 
     // для фотонов
     // const int N = 100;

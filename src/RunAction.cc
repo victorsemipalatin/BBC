@@ -1,15 +1,15 @@
 #include "RunAction.hh"
 
-
-RunAction::RunAction(){
+RunAction::RunAction()
+{
 }
 
-
-RunAction::~RunAction(){
+RunAction::~RunAction()
+{
 }
 
-
-void RunAction::BeginOfRunAction(const G4Run *run){
+void RunAction::BeginOfRunAction(const G4Run *run)
+{
     auto analysisManager = G4AnalysisManager::Instance();
 
     // analysisManager -> CreateH1("PhotonsCount", "PhotonsCount", 100, 0, 50.);
@@ -47,11 +47,11 @@ void RunAction::BeginOfRunAction(const G4Run *run){
     // analysisManager -> OpenFile("/home/e/BBC/data_analyse/data/output_" + std::string(buffer) + ".root");
 }
 
-
-void RunAction::EndOfRunAction(const G4Run *run){
+void RunAction::EndOfRunAction(const G4Run *run)
+{
     auto analysisManager = G4AnalysisManager::Instance();
-    analysisManager -> Write();
-    analysisManager -> CloseFile();
-    auto runID = run -> GetRunID();
+    analysisManager->Write();
+    analysisManager->CloseFile();
+    auto runID = run->GetRunID();
     G4cout << "Finishing run " << runID << G4endl;
 }

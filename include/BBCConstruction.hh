@@ -1,7 +1,6 @@
 #ifndef CONSTRUCTION_HH
 #define CONSTRUCTION_HH
 
-
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
@@ -25,20 +24,20 @@
 #include <vector>
 #include <cmath>
 
-
 #define PI 3.14159265
 
+class BBCConstruction : public G4VUserDetectorConstruction
+{
+public:
+    BBCConstruction();
+    virtual ~BBCConstruction();
+    virtual G4VPhysicalVolume *Construct();
 
-class BBCConstruction: public G4VUserDetectorConstruction{
-    public:
-        BBCConstruction();
-        virtual ~BBCConstruction();
-        virtual G4VPhysicalVolume *Construct();
-    private:
-        G4LogicalVolume *logicDetector1;
-        G4LogicalVolume *logicDetector2;
-        G4LogicalVolume *logicDetector5;
-        virtual void ConstructSDandField();
+private:
+    G4LogicalVolume *logicDetector1;
+    G4LogicalVolume *logicDetector2;
+    G4LogicalVolume *logicDetector5;
+    virtual void ConstructSDandField();
 };
 
 #endif

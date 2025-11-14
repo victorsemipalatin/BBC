@@ -6,42 +6,47 @@
 #include "G4UIExecutive.hh"
 #include "G4MTRunManager.hh"
 
-#include "BBCConstruction.hh"
+// #include "BBCConstruction.hh"
+#include "DetectorConstruction.hh"
 #include "BBCPhysics.hh"
 #include "ActionInitialization.hh"
 
-
-int main(int argc, char **argv){
+int main(int argc, char **argv)
+{
     G4UIExecutive *ui;
 
-    #ifdef G4MULTITHREADED
-        G4RunManager *runManager = new G4MTRunManager;
-    #else
-        G4RunManager *runManager = new G4RunManager;
-    #endif
+#ifdef G4MULTITHREADED
+    G4RunManager *runManager = new G4MTRunManager;
+#else
+    G4RunManager *runManager = new G4RunManager;
+#endif
 
-    runManager -> SetUserInitialization(new BBCConstruction());
-    runManager -> SetUserInitialization(new PhysicsList());
-    runManager -> SetUserInitialization(new ActionInitialization());
+    // runManager -> SetUserInitialization(new BBCConstruction());
+    runManager->SetUserInitialization(new DetectorConstruction());
+    runManager->SetUserInitialization(new PhysicsList());
+    runManager->SetUserInitialization(new ActionInitialization());
     // runManager -> Initialize();
 
-    if (argc == 1){
+    if (argc == 1)
+    {
         ui = new G4UIExecutive(argc, argv);
     }
 
     G4VisManager *visManager = new G4VisExecutive();
-    visManager -> Initialize();
+    visManager->Initialize();
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    if(ui){
-        UImanager -> ApplyCommand("/control/execute vis.mac");
-        ui -> SessionStart();
+    if (ui)
+    {
+        UImanager->ApplyCommand("/control/execute vis.mac");
+        ui->SessionStart();
     }
-    else{
+    else
+    {
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
-        UImanager -> ApplyCommand(command + fileName);
+        UImanager->ApplyCommand(command + fileName);
     }
 
     return 0;

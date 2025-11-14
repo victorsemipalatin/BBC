@@ -1,28 +1,28 @@
 #include "BBCConstruction.hh"
 // #include "CADMesh.hh" // конвертер
 
-
-BBCConstruction::BBCConstruction(){
+BBCConstruction::BBCConstruction()
+{
 }
 
-
-BBCConstruction::~BBCConstruction(){
-    G4cout << "BBCConstruction killed" << G4endl;   
+BBCConstruction::~BBCConstruction()
+{
+    G4cout << "BBCConstruction killed" << G4endl;
 }
 
-
-G4VPhysicalVolume *BBCConstruction::Construct(){
+G4VPhysicalVolume *BBCConstruction::Construct()
+{
 
     G4bool checkOverlaps = true;
 
     G4NistManager *nist = G4NistManager::Instance();
 
     G4double energy[2] = {1.239841939 * eV / 0.9, 1.239841939 * eV / 0.2};
-    G4Material *worldMat = nist -> FindOrBuildMaterial("G4_Galactic");
+    G4Material *worldMat = nist->FindOrBuildMaterial("G4_Galactic");
     auto mptWorld = new G4MaterialPropertiesTable();
     G4double reflectionIndexworld[2] = {1., 1.};
-    mptWorld -> AddProperty("RINDEX", energy, reflectionIndexworld, 2);
-    worldMat -> SetMaterialPropertiesTable(mptWorld);
+    mptWorld->AddProperty("RINDEX", energy, reflectionIndexworld, 2);
+    worldMat->SetMaterialPropertiesTable(mptWorld);
 
     G4Box *solidWorld = new G4Box("SolidWorld", 5. * m, 5. * m, 5. * m);
     G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat, "logicWorld");
@@ -31,116 +31,117 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // *************** НАСТРОЙКА МАТЕРИАЛОВ *************** //
 
     // СВИНЕЦ
-    auto lead = nist -> FindOrBuildMaterial("G4_Pb");  
+    auto lead = nist->FindOrBuildMaterial("G4_Pb");
 
     // СЦИНТИЛЛЯТОР
-    auto polystyrene = nist -> FindOrBuildMaterial("G4_POLYSTYRENE", 1.045 * g / cm3);
+    auto polystyrene = nist->FindOrBuildMaterial("G4_POLYSTYRENE", 1.045 * g / cm3);
 
-    auto C = nist -> FindOrBuildElement("C");
-    auto H = nist -> FindOrBuildElement("H");
-    auto O = nist -> FindOrBuildElement("O");
+    auto C = nist->FindOrBuildElement("C");
+    auto H = nist->FindOrBuildElement("H");
+    auto O = nist->FindOrBuildElement("O");
 
     auto pTerphenyl = new G4Material("pTerphenyl", 1.23 * g / cm3, 2);
-    pTerphenyl -> AddElement(C, 18);
-    pTerphenyl -> AddElement(H, 14);
+    pTerphenyl->AddElement(C, 18);
+    pTerphenyl->AddElement(H, 14);
 
     auto POPOP = new G4Material("POPOP", 1.18 * g / cm3, 3);
-    POPOP -> AddElement(C, 24);
-    POPOP -> AddElement(H, 18);
-    POPOP -> AddElement(O, 2);
+    POPOP->AddElement(C, 24);
+    POPOP->AddElement(H, 18);
+    POPOP->AddElement(O, 2);
 
     auto scintillator = new G4Material("Scintillator", 1.05 * g / cm3, 3);
-    scintillator -> AddMaterial(polystyrene, 0.98);
-    scintillator -> AddMaterial(pTerphenyl,  0.015);
-    scintillator -> AddMaterial(POPOP, 0.005);
+    scintillator->AddMaterial(polystyrene, 0.98);
+    scintillator->AddMaterial(pTerphenyl, 0.015);
+    scintillator->AddMaterial(POPOP, 0.005);
 
     auto mptScintillator = new G4MaterialPropertiesTable();
 
     const G4int nEntries = 60;
-	G4double photonEnergy[nEntries] = {2.3, 2.31525, 2.33051, 2.34576, 2.36102, 2.37627, 2.39153, 2.40678, 2.42203, 2.43729, 2.45254, 2.4678, 2.48305, 2.49831, 2.51356,
-		 2.52881, 2.54407, 2.55932, 2.57458, 2.58983, 2.60508, 2.62034, 2.63559, 2.65085, 2.6661, 2.68136, 2.69661, 2.71186, 2.72712, 2.74237,
-		 2.75763, 2.77288, 2.78814, 2.80339, 2.81864, 2.8339, 2.84915, 2.86441, 2.87966, 2.89492, 2.91017, 2.92542, 2.94068, 2.95593, 2.97119,
-		 2.98644, 3.00169, 3.01695, 3.0322, 3.04746, 3.06271, 3.07797, 3.09322, 3.10847, 3.12373, 3.13898, 3.15424, 3.16949, 3.18475, 3.2};
-	G4double refractiveScin[nEntries];
-	G4double absLengthScin[nEntries];
-	G4double photFraction[nEntries] = {0, 0, 0.04304, 0.09311, 0.14318, 0.19325, 0.24331, 0.29338, 0.34345, 0.39352, 0.44359, 0.49365, 0.54372, 0.59379, 0.65703,
-		 0.72516, 0.7829, 0.85487, 0.93619, 1.0156, 1.10002, 1.19322, 1.29936, 1.41172, 1.53233, 1.65876, 1.79893, 1.98186, 2.18771, 2.4366,
-		 2.78324, 3.0698, 3.27276, 3.39218, 3.46918, 3.4941, 3.52619, 3.60856, 3.88683, 4.28688, 4.71702, 4.93565, 4.80817, 4.56821, 4.23367,
-		 3.56117, 2.30136, 1.47323, 1.10353, 0.84005, 0.61903, 0.46259, 0.35545, 0.2483, 0.14115, 0.034, 0, 0, 0, 0};
+    G4double photonEnergy[nEntries] = {2.3, 2.31525, 2.33051, 2.34576, 2.36102, 2.37627, 2.39153, 2.40678, 2.42203, 2.43729, 2.45254, 2.4678, 2.48305, 2.49831, 2.51356,
+                                       2.52881, 2.54407, 2.55932, 2.57458, 2.58983, 2.60508, 2.62034, 2.63559, 2.65085, 2.6661, 2.68136, 2.69661, 2.71186, 2.72712, 2.74237,
+                                       2.75763, 2.77288, 2.78814, 2.80339, 2.81864, 2.8339, 2.84915, 2.86441, 2.87966, 2.89492, 2.91017, 2.92542, 2.94068, 2.95593, 2.97119,
+                                       2.98644, 3.00169, 3.01695, 3.0322, 3.04746, 3.06271, 3.07797, 3.09322, 3.10847, 3.12373, 3.13898, 3.15424, 3.16949, 3.18475, 3.2};
+    G4double refractiveScin[nEntries];
+    G4double absLengthScin[nEntries];
+    G4double photFraction[nEntries] = {0, 0, 0.04304, 0.09311, 0.14318, 0.19325, 0.24331, 0.29338, 0.34345, 0.39352, 0.44359, 0.49365, 0.54372, 0.59379, 0.65703,
+                                       0.72516, 0.7829, 0.85487, 0.93619, 1.0156, 1.10002, 1.19322, 1.29936, 1.41172, 1.53233, 1.65876, 1.79893, 1.98186, 2.18771, 2.4366,
+                                       2.78324, 3.0698, 3.27276, 3.39218, 3.46918, 3.4941, 3.52619, 3.60856, 3.88683, 4.28688, 4.71702, 4.93565, 4.80817, 4.56821, 4.23367,
+                                       3.56117, 2.30136, 1.47323, 1.10353, 0.84005, 0.61903, 0.46259, 0.35545, 0.2483, 0.14115, 0.034, 0, 0, 0, 0};
 
-	for (int i = 0; i < nEntries; i++){
-		refractiveScin[i] = 1.63;
-		absLengthScin[i] = 1. * m;
-		photonEnergy[i] = photonEnergy[i] * eV;
-	}
+    for (int i = 0; i < nEntries; i++)
+    {
+        refractiveScin[i] = 1.63;
+        absLengthScin[i] = 1. * m;
+        photonEnergy[i] = photonEnergy[i] * eV;
+    }
 
-    mptScintillator -> AddProperty("RINDEX", photonEnergy, refractiveScin, nEntries);
-    mptScintillator -> AddProperty("ABSLENGTH", photonEnergy, absLengthScin, nEntries);
-	mptScintillator -> AddProperty("SCINTILLATIONCOMPONENT1", photonEnergy, photFraction, nEntries);
-	mptScintillator -> AddProperty("SCINTILLATIONCOMPONENT2", photonEnergy, photFraction, nEntries);
-    mptScintillator -> AddConstProperty("SCINTILLATIONYIELD", 12000. / MeV); // световыход на единицу энергопотерь
-    mptScintillator -> AddConstProperty("RESOLUTIONSCALE", 1.0); // доля энергетического спектра, участвующего в генерации
-    mptScintillator -> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 2.4 * ns); // Время высвечивания быстрой компоненты сцинтилляционной вспышки
-    mptScintillator -> AddConstProperty("SCINTILLATIONTIMECONSTANT2", 5. * ns); // Время высвечивания медленной компоненты сцинтилляционной вспышки
-    mptScintillator -> AddConstProperty("SCINTILLATIONYIELD1", 1.); // доля быстрой компоненты
-    mptScintillator -> AddConstProperty("SCINTILLATIONYIELD2", 0.); // доля медленной компоненты
-    G4double reflectionIndexPolystyrene[2] = {1., 1.};  // разные коэффициенты для разных энергий (действительно)
-    mptScintillator -> AddProperty("REFLECTIVITY", energy, reflectionIndexPolystyrene, 2);
-    scintillator -> GetIonisation() -> SetBirksConstant(0.126 * mm / MeV); // Примерное значение для полистирола
-    scintillator -> SetMaterialPropertiesTable(mptScintillator);
+    mptScintillator->AddProperty("RINDEX", photonEnergy, refractiveScin, nEntries);
+    mptScintillator->AddProperty("ABSLENGTH", photonEnergy, absLengthScin, nEntries);
+    mptScintillator->AddProperty("SCINTILLATIONCOMPONENT1", photonEnergy, photFraction, nEntries);
+    mptScintillator->AddProperty("SCINTILLATIONCOMPONENT2", photonEnergy, photFraction, nEntries);
+    mptScintillator->AddConstProperty("SCINTILLATIONYIELD", 12000. / MeV);     // световыход на единицу энергопотерь
+    mptScintillator->AddConstProperty("RESOLUTIONSCALE", 1.0);                 // доля энергетического спектра, участвующего в генерации
+    mptScintillator->AddConstProperty("SCINTILLATIONTIMECONSTANT1", 2.4 * ns); // Время высвечивания быстрой компоненты сцинтилляционной вспышки
+    mptScintillator->AddConstProperty("SCINTILLATIONTIMECONSTANT2", 5. * ns);  // Время высвечивания медленной компоненты сцинтилляционной вспышки
+    mptScintillator->AddConstProperty("SCINTILLATIONYIELD1", 1.);              // доля быстрой компоненты
+    mptScintillator->AddConstProperty("SCINTILLATIONYIELD2", 0.);              // доля медленной компоненты
+    G4double reflectionIndexPolystyrene[2] = {1., 1.};                         // разные коэффициенты для разных энергий (действительно)
+    mptScintillator->AddProperty("REFLECTIVITY", energy, reflectionIndexPolystyrene, 2);
+    scintillator->GetIonisation()->SetBirksConstant(0.126 * mm / MeV); // Примерное значение для полистирола
+    scintillator->SetMaterialPropertiesTable(mptScintillator);
 
-    G4MaterialPropertiesTable* mirrorSurfaceMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *mirrorSurfaceMPT = new G4MaterialPropertiesTable();
     G4double reflectivity[2] = {.8, .8};
     G4double efficiency[2] = {0.0, 0.0}; // отсутствие собственного излучения
-    mirrorSurfaceMPT -> AddProperty("REFLECTIVITY", energy, reflectivity, 2);
-    mirrorSurfaceMPT -> AddProperty("EFFICIENCY", energy, efficiency, 2);
+    mirrorSurfaceMPT->AddProperty("REFLECTIVITY", energy, reflectivity, 2);
+    mirrorSurfaceMPT->AddProperty("EFFICIENCY", energy, efficiency, 2);
 
-    G4OpticalSurface* opOutSurface = new G4OpticalSurface("scintOutSurface");
-    opOutSurface -> SetType(dielectric_metal);
-    opOutSurface -> SetFinish(polished);
-    opOutSurface -> SetModel(unified);
-    opOutSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
+    G4OpticalSurface *opOutSurface = new G4OpticalSurface("scintOutSurface");
+    opOutSurface->SetType(dielectric_metal);
+    opOutSurface->SetFinish(polished);
+    opOutSurface->SetModel(unified);
+    opOutSurface->SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
-    G4OpticalSurface* opInSurface = new G4OpticalSurface("scintInSurface");
-    opInSurface -> SetType(dielectric_dielectric);
-    opInSurface -> SetFinish(polished);
-    opInSurface -> SetModel(unified);
-    opInSurface -> SetMaterialPropertiesTable(mirrorSurfaceMPT);
+    G4OpticalSurface *opInSurface = new G4OpticalSurface("scintInSurface");
+    opInSurface->SetType(dielectric_dielectric);
+    opInSurface->SetFinish(polished);
+    opInSurface->SetModel(unified);
+    opInSurface->SetMaterialPropertiesTable(mirrorSurfaceMPT);
 
-    G4OpticalSurface* dd = new G4OpticalSurface("CoreAir");
-    dd -> SetType(dielectric_dielectric);
-    dd -> SetFinish(polished);
-    dd -> SetModel(unified);
+    G4OpticalSurface *dd = new G4OpticalSurface("CoreAir");
+    dd->SetType(dielectric_dielectric);
+    dd->SetFinish(polished);
+    dd->SetModel(unified);
 
-    G4MaterialPropertiesTable* blackSurfaceMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *blackSurfaceMPT = new G4MaterialPropertiesTable();
     G4double blackReflectivity[2] = {1.0, 1.0};
-    blackSurfaceMPT -> AddProperty("REFLECTIVITY", energy, blackReflectivity, 2);
+    blackSurfaceMPT->AddProperty("REFLECTIVITY", energy, blackReflectivity, 2);
 
-    G4OpticalSurface* blackSurface = new G4OpticalSurface("blackSurface");
-    blackSurface -> SetType(dielectric_metal);
-    blackSurface -> SetFinish(polished);
-    blackSurface -> SetModel(unified);
-    blackSurface -> SetMaterialPropertiesTable(blackSurfaceMPT);
+    G4OpticalSurface *blackSurface = new G4OpticalSurface("blackSurface");
+    blackSurface->SetType(dielectric_metal);
+    blackSurface->SetFinish(polished);
+    blackSurface->SetModel(unified);
+    blackSurface->SetMaterialPropertiesTable(blackSurfaceMPT);
 
     // ОПТОВОЛОКНО
 
     G4double a = 1.01 * g / mole;
-	G4Element* elH  = new G4Element("Hydrogen", "H", 1., a);
-	a = 12.01 * g / mole;
-	G4Element* elC  = new G4Element("Carbon", "C", 6., a);
-	a = 16.00 * g / mole;
-	G4Element* elO  = new G4Element("Oxygen", "O", 8., a);
+    G4Element *elH = new G4Element("Hydrogen", "H", 1., a);
+    a = 12.01 * g / mole;
+    G4Element *elC = new G4Element("Carbon", "C", 6., a);
+    a = 16.00 * g / mole;
+    G4Element *elO = new G4Element("Oxygen", "O", 8., a);
 
-    //Cladding
-	G4Material* PMMA = new G4Material("PMMA", 1.19 * g / cm3, 3);
-	PMMA -> AddElement(elC, 5);
-	PMMA -> AddElement(elH, 8);
-	PMMA -> AddElement(elO, 2);
+    // Cladding
+    G4Material *PMMA = new G4Material("PMMA", 1.19 * g / cm3, 3);
+    PMMA->AddElement(elC, 5);
+    PMMA->AddElement(elH, 8);
+    PMMA->AddElement(elO, 2);
 
-	// Core
-	G4Material* PS = new G4Material("PS", 1.05 * g / cm3, 2);
-	PS -> AddElement(elC, 8);
-	PS -> AddElement(elH, 8);
+    // Core
+    G4Material *PS = new G4Material("PS", 1.05 * g / cm3, 2);
+    PS->AddElement(elC, 8);
+    PS->AddElement(elH, 8);
 
     G4double energies[188] = {2.0132323531, 2.0191595709, 2.0249811007, 2.0309070471, 2.036867779,
                               2.0428636035, 2.0487268164, 2.0547927658, 2.0608947425, 2.0672040994,
@@ -259,44 +260,44 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
                          0.0027852884, 0.0016589197, 0.0016589197, 0.0016589197, 0.0016589197,
                          0.0031300952, 0.0068080339, 0.0080953125};
 
-    G4double EnergyOpt[10] = {1.9 * eV, 2.2 * eV, 2.3 * eV, 2.4 * eV, 2.56 * eV, 2.66 * eV, 2.68 * eV, 3.69 * eV, 3.7 * eV, 4.0 * eV };
-	G4double spIzlOpt[10] = {0.001, 0.05, 0.25, 0.7, 1., 1., 0., 0., 0., 0.};
-	G4double absLenOpt[10] = {5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 0.1 * mm, 0.1 * mm, 5.0 * m, 5.0 * m };
-	G4double rindexOptCore[10] = {1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59 };
-	G4double rindexOptCladding[10] = {1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49 };
+    G4double EnergyOpt[10] = {1.9 * eV, 2.2 * eV, 2.3 * eV, 2.4 * eV, 2.56 * eV, 2.66 * eV, 2.68 * eV, 3.69 * eV, 3.7 * eV, 4.0 * eV};
+    G4double spIzlOpt[10] = {0.001, 0.05, 0.25, 0.7, 1., 1., 0., 0., 0., 0.};
+    G4double absLenOpt[10] = {5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 5.0 * m, 0.1 * mm, 0.1 * mm, 5.0 * m, 5.0 * m};
+    G4double rindexOptCore[10] = {1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59, 1.59};
+    G4double rindexOptCladding[10] = {1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49, 1.49};
 
-    G4MaterialPropertiesTable* optCladdingProperties = new G4MaterialPropertiesTable();
-	optCladdingProperties -> AddProperty("RINDEX", EnergyOpt, rindexOptCladding, 10);
-	optCladdingProperties -> AddProperty("WLSABSLENGTH", EnergyOpt, absLenOpt, 10);
-	optCladdingProperties -> AddProperty("WLSCOMPONENT", EnergyOpt, spIzlOpt, 10);
-	optCladdingProperties -> AddConstProperty("WLSTIMECONSTANT", 0.5 * ns);
-	PMMA -> SetMaterialPropertiesTable(optCladdingProperties);
+    G4MaterialPropertiesTable *optCladdingProperties = new G4MaterialPropertiesTable();
+    optCladdingProperties->AddProperty("RINDEX", EnergyOpt, rindexOptCladding, 10);
+    optCladdingProperties->AddProperty("WLSABSLENGTH", EnergyOpt, absLenOpt, 10);
+    optCladdingProperties->AddProperty("WLSCOMPONENT", EnergyOpt, spIzlOpt, 10);
+    optCladdingProperties->AddConstProperty("WLSTIMECONSTANT", 0.5 * ns);
+    PMMA->SetMaterialPropertiesTable(optCladdingProperties);
 
-    G4MaterialPropertiesTable* optCoreProperties = new G4MaterialPropertiesTable();
-	optCoreProperties -> AddProperty("RINDEX", EnergyOpt, rindexOptCore, 10);
-	optCoreProperties -> AddProperty("WLSABSLENGTH", EnergyOpt, absLenOpt, 10);
-	optCoreProperties -> AddProperty("WLSCOMPONENT", energies, pdf, 188);
-	optCoreProperties -> AddConstProperty("WLSTIMECONSTANT", 0.5 * ns);
+    G4MaterialPropertiesTable *optCoreProperties = new G4MaterialPropertiesTable();
+    optCoreProperties->AddProperty("RINDEX", EnergyOpt, rindexOptCore, 10);
+    optCoreProperties->AddProperty("WLSABSLENGTH", EnergyOpt, absLenOpt, 10);
+    optCoreProperties->AddProperty("WLSCOMPONENT", energies, pdf, 188);
+    optCoreProperties->AddConstProperty("WLSTIMECONSTANT", 0.5 * ns);
     optCoreProperties->AddConstProperty("WLSMEANNUMBERPHOTONS", 1.);
-	PS -> SetMaterialPropertiesTable(optCoreProperties);
+    PS->SetMaterialPropertiesTable(optCoreProperties);
 
     // **************************************** //
 
-    // ********* НАСТРОЙКА ОТРИСОВКИ ********* //    
+    // ********* НАСТРОЙКА ОТРИСОВКИ ********* //
     auto tileAttr = new G4VisAttributes(G4Color(192, 192, 192, 1.)); // серый цвет
-    tileAttr -> SetForceSolid(true);
+    tileAttr->SetForceSolid(true);
 
     auto shifterCore = new G4VisAttributes(G4Color(0, 255, 0, .5));
-    shifterCore -> SetForceSolid(true);
+    shifterCore->SetForceSolid(true);
 
     auto shifterCladding = new G4VisAttributes(G4Color(75, 245, 66, .5));
-    shifterCladding -> SetForceSolid(true);
+    shifterCladding->SetForceSolid(true);
 
     auto plateAttr = new G4VisAttributes(G4Color(171, 176, 171, 0.5));
-    plateAttr -> SetForceSolid(true);
+    plateAttr->SetForceSolid(true);
 
     auto sipmAttr = new G4VisAttributes(G4Color(255, 0, 0, 1));
-    sipmAttr -> SetForceSolid(true);
+    sipmAttr->SetForceSolid(true);
     // **************************************** //
 
     // *************** CADMesh *************** //
@@ -381,7 +382,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // auto rotation_0 = new G4RotationMatrix();
     // rotation_0 -> rotateX(90 * deg);
     // rotation_0 -> rotateY(-180 * deg);
-    
+
     // auto solidTile0 = new G4SubtractionSolid("SolidTile0", subtraction5_0, prism_0, rotation_0, G4ThreeVector(2.1 * mm, 3. * mm, 27.5 * mm));
 
     // auto logicTile0 = new G4LogicalVolume(solidTile0, scintillator, "logicTile1");
@@ -403,11 +404,11 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     // Волокно
     // G4double l = 97.;
-    // auto solidRingCore0 = new G4Torus("SolidRingCore0", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 335 * deg); 
+    // auto solidRingCore0 = new G4Torus("SolidRingCore0", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 335 * deg);
     // auto solidOutletCore0 = new G4Tubs("SolidOutletCore0", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
     // auto solidCore0 = new G4UnionSolid("SolidCore0", solidRingCore0, solidOutletCore0, G4Transform3D(*rotationMatrix, G4ThreeVector(13.48 * mm, -(l / 2 - 0.01) * mm, 0. * mm)));
 
-    // auto solidCladdingAll0 = new G4Torus("SolidRingCore0", 0.48 * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 335 * deg); 
+    // auto solidCladdingAll0 = new G4Torus("SolidRingCore0", 0.48 * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 335 * deg);
     // auto solidOutletCladding0 = new G4Tubs("SolidOutletCladding0", 0.48, .5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
     // auto solidCladding0 = new G4UnionSolid("SolidCladding0", solidCladdingAll0, solidOutletCladding0, G4Transform3D(*rotationMatrix, G4ThreeVector(13.48 * mm, -(l / 2 - 0.0001) * mm, 0. * mm)));
 
@@ -469,9 +470,9 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     polygon1.push_back(G4TwoVector(53.19 * mm, 0.));
     polygon1.push_back(G4TwoVector(64.26 * mm, 55.61 * mm));
     polygon1.push_back(G4TwoVector(0., 55.61 * mm));
-    G4double halfZ1 =  10 / 2 * mm;
+    G4double halfZ1 = 10 / 2 * mm;
     auto prism1 = new G4ExtrudedSolid("Prism1", polygon1, halfZ1, G4TwoVector(0, 0), 1.0, G4TwoVector(0, 0), 1.0);
-    
+
     auto cylinder = new G4Tubs("Сylinder", 0., 1.25 * mm, 11. / 2 * mm, 0. * deg, 360. * deg);
     auto subtraction1 = new G4SubtractionSolid("Subtraction1", prism1, cylinder, nullptr, G4ThreeVector(4.2 * mm, 4.2 * mm, 0.));
     auto subtraction2 = new G4SubtractionSolid("Subtraction2", subtraction1, cylinder, nullptr, G4ThreeVector(49.95 * mm, 4.2 * mm, 0.));
@@ -501,20 +502,21 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     logicDetector5 = logicShifter5;
 
-    logicTile5 -> SetVisAttributes(tileAttr);
-    logicShifter5 -> SetVisAttributes(shifterCore);
+    logicTile5->SetVisAttributes(tileAttr);
+    logicShifter5->SetVisAttributes(shifterCore);
 
-    G4OpticalSurface* scintToAirSurface = new G4OpticalSurface("ScintToAir");
-    scintToAirSurface -> SetType(dielectric_dielectric);
-    scintToAirSurface -> SetFinish(ground);  // Шероховатая поверхность увеличивает захват
-    scintToAirSurface -> SetModel(unified);
+    G4OpticalSurface *scintToAirSurface = new G4OpticalSurface("ScintToAir");
+    scintToAirSurface->SetType(dielectric_dielectric);
+    scintToAirSurface->SetFinish(ground); // Шероховатая поверхность увеличивает захват
+    scintToAirSurface->SetModel(unified);
 
-    for (G4int i = 0; i < sectors_num; i++){
+    for (G4int i = 0; i < sectors_num; i++)
+    {
         auto rotm = new G4RotationMatrix();
-        rotm -> rotateY(180. * deg);
-        rotm -> rotateZ((22.5 * i) * deg);
-        auto physTile5 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5  * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile5, "physTile5", logicWorld, false, i, checkOverlaps);
-        auto physShifter5 = new G4PVPlacement(rotm, G4ThreeVector(-25.81 + shift * sin(22.5  * PI / 180 * i) * mm, 27.81 + shift * cos(22.5 * PI / 180 * i) * mm, 2. * mm), logicShifter5, "physShifter5", logicWorld, false, i, checkOverlaps);
+        rotm->rotateY(180. * deg);
+        rotm->rotateZ((22.5 * i) * deg);
+        auto physTile5 = new G4PVPlacement(rotm, G4ThreeVector(shift * sin(22.5 * PI / 180 * i) * mm, shift * cos(22.5 * PI / 180 * i) * mm, 0), logicTile5, "physTile5", logicWorld, false, i, checkOverlaps);
+        auto physShifter5 = new G4PVPlacement(rotm, G4ThreeVector(-25.81 + shift * sin(22.5 * PI / 180 * i) * mm, 27.81 + shift * cos(22.5 * PI / 180 * i) * mm, 2. * mm), logicShifter5, "physShifter5", logicWorld, false, i, checkOverlaps);
         new G4LogicalBorderSurface("scintInSurface", physTile5, physWorld, scintToAirSurface);
         new G4LogicalBorderSurface("shifterSurface", physWorld, physShifter5, dd);
         // new G4LogicalBorderSurface("scintOutSurface", physWorld, physTile5, opOutSurface);
@@ -534,7 +536,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // **************************************** //
 
     // *** Тестирование волокна (прямой участок) **** //
-    
+
     // G4double l = 900.;
     // auto solidCoreTest = new G4Tubs("SolidOutletCoreTest", 0 * mm, 0.48 * mm, l / 2 * mm, 0 * deg, 360 * deg);
     // auto solidCladdingTest = new G4Tubs("SolidOutletCladdingTest", 0.48, .5 * mm, l / 2 * mm, 0 * deg, 360 * deg);
@@ -585,8 +587,8 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // **************************************** //
 
     // *** Тестирование волокна (кольцо) **** //
-    // auto solidCoreTest = new G4Torus("SolidCoreTest", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
-    // auto solidCladdingTest = new G4Torus("SolidCladdingTest", 0.48 * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
+    // auto solidCoreTest = new G4Torus("SolidCoreTest", 0., 0.48 * mm, 13.48 * mm, 0 * deg, 180 * deg);
+    // auto solidCladdingTest = new G4Torus("SolidCladdingTest", 0.48 * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg);
 
     // auto logicCoreTest = new G4LogicalVolume(solidCoreTest, PS, "logicCoreTest");
     // auto logicCladdingTest = new G4LogicalVolume(solidCladdingTest, PMMA, "logicCladdingTest");
@@ -599,7 +601,7 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
     // auto logicScint = new G4LogicalVolume(solidTester, scintillator, "logicScint");
 
     // auto solidBox = new G4Box("SolidBox", .5 / 2 * cm, .5 * m, .5 * m);
-    // auto subs = new G4Torus("SolidCladdingTest", 0. * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg); 
+    // auto subs = new G4Torus("SolidCladdingTest", 0. * mm, 0.5 * mm, 13.48 * mm, 0 * deg, 180 * deg);
     // auto solidPlate = new G4SubtractionSolid("SolidPlate", solidBox, subs, nullptr, G4ThreeVector());
     // auto logicPlate = new G4LogicalVolume(solidPlate, lead, "logicPlate");
 
@@ -618,13 +620,11 @@ G4VPhysicalVolume *BBCConstruction::Construct(){
 
     // **************************************** //
 
-
-    
     return physWorld;
 }
 
-
-void BBCConstruction::ConstructSDandField(){
+void BBCConstruction::ConstructSDandField()
+{
     // auto sensDet1 = new SensitiveDetector("SensitiveDetector1");
     // logicDetector1 -> SetSensitiveDetector(sensDet1);
     // G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet1);
@@ -634,6 +634,6 @@ void BBCConstruction::ConstructSDandField(){
     // G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet2);
 
     auto sensDet5 = new SensitiveDetector("SensitiveDetector5");
-    logicDetector5 -> SetSensitiveDetector(sensDet5);
-    G4SDManager::GetSDMpointer() -> AddNewDetector(sensDet5);
+    logicDetector5->SetSensitiveDetector(sensDet5);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensDet5);
 }
