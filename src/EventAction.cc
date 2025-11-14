@@ -6,7 +6,8 @@ namespace {
 }
 
 EventAction::EventAction(){
-    fOutputFileName = "/home/e/BBC/data_analyse/data/gamma_test_2.txt";
+    // fOutputFileName = "/home/e/BBC/data_analyse/data/gamma_test_2.txt";
+    fOutputFileName = "/home/e/BBC/data_analyse/data/tile_5_test_spectrum_1.txt";
 }
 
 EventAction::~EventAction(){

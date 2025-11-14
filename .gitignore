@@ -1,4 +1,8 @@
 /.vscode
 /build
+*.csv
 *.root
 *.txt
+/data_analyse/data/txt
+/data_analyse/data/root
+

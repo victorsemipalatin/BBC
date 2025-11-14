@@ -28,7 +28,7 @@ void RunAction::BeginOfRunAction(const G4Run *run){
     // analysisManager -> CreateH1("Energy", "edep", 100, 0, 100);
 
     // *********** Энерговыделение *********** //
-    // analysisManager -> CreateH1("Electrons Deposited Energy", "elDep", 100, 0.01, 25);
+    // analysisManager -> CreateH1("Electrons Deposited Energy", "elDep", 100, 0.01, 16);
     // **************************************** //
 
     // ********* Разлёт гамма-квантов ********* //

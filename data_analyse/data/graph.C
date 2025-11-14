@@ -24,7 +24,7 @@ void WLDistribution() {
 
 
 void ElDep() {
-    TFile *inputFile = new TFile("output_07.10.2025_21:37:49.root", "READ");
+    TFile *inputFile = new TFile("output_17.10.2025_23:59:03.root", "READ");
     TH1D *h = (TH1D*)inputFile -> Get("Electrons Deposited Energy");
 
 	TCanvas* c1 = new TCanvas("c1", "Electron energy spectrum", 2426, 1433);
@@ -45,7 +45,7 @@ void ElDep() {
 	gStyle -> SetOptStat("nemri");
 
 	c1 -> SetGrid();
-	c1 -> SaveAs("eldep_log_22_keV.png");
+	c1 -> SaveAs("eldep_log_15_keV_85_mm.png");
 }
 
 
@@ -208,9 +208,67 @@ void gammaFlight() {
     poly -> SetLineWidth(3);
     poly -> Draw("SAME");
 
+    // gPad -> SetLogz();
+
     h2 -> GetXaxis() -> SetTitle("X, mm");
     h2 -> GetYaxis() -> SetTitle("Y, mm");
     h2 -> GetZaxis() -> SetTitle("Number of #gamma-quanta");
-    c1 -> SaveAs("gamma_flight_3.png");
+    c1 -> SaveAs("gamma_flight_left_right_15_keV.png");
 }
 
+
+void tileTest() {
+    ifstream infile("tile_5_test_spectrum_1.txt");
+    if (!infile.is_open()) {
+        printf("error\n");
+        return;
+    }
+
+    int nBinsX = 30;
+    int nBinsY = 30;
+    TH2F *h2 = new TH2F("h2", "Registered photons", nBinsX, -68, 0, nBinsY, 0, 60);
+
+    double x, y, z;
+    while (infile >> x >> y >> z) {
+        // int binX = h2 -> GetXaxis() -> FindBin(x);
+        // int binY = h2 -> GetYaxis() -> FindBin(y);
+        // h2 -> SetBinContent(binX, binY, z);
+        h2 -> Fill(x, y, z);
+    }
+    infile.close();
+
+    TCanvas *c1 = new TCanvas("c1", "Colormap", 2426, 1433);
+    c1 -> SetRightMargin(0.18);
+    gStyle -> SetOptStat(0);
+    const Int_t NCont = 255;
+    gStyle -> SetNumberContours(NCont);  // Количество градаций цвета
+
+    const Int_t NRGBs = 5;
+    Double_t stops[NRGBs]    = {0.00, 0.25, 0.50, 0.75, 1.00}; // позиции
+    Double_t red[NRGBs]      = {0.00, 0.00, 1.00, 1.00, 0.50}; // красный
+    Double_t green[NRGBs]    = {0.00, 1.00, 1.00, 0.50, 0.00}; // зелёный
+    Double_t blue[NRGBs]     = {1.00, 1.00, 0.00, 0.00, 0.00}; // синий
+
+
+    TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+    h2 -> Draw("COLZ");
+
+    TPolyLine *poly = new TPolyLine(5);
+    poly -> SetPoint(0, 0, 0);
+    poly -> SetPoint(1, -53.19, 0);
+    poly -> SetPoint(2, -64.26, 55.61);
+    poly -> SetPoint(3, 0, 55.61);
+    poly -> SetPoint(4, 0, 0);
+    poly -> SetLineColor(kRed);
+    poly -> SetLineStyle(2);
+    poly -> SetLineWidth(3);
+    poly -> Draw("SAME");
+
+
+    // gPad -> SetLogz();
+
+    h2 -> GetXaxis() -> SetTitle("X, mm");
+    h2 -> GetYaxis() -> SetTitle("Y, mm");
+    h2 -> GetZaxis() -> SetTitle("Number of photons depending on hit position");
+    c1 -> SaveAs("tile_5_test_1_spectrum.png");
+}
