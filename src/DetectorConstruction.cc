@@ -1,6 +1,6 @@
 #include "DetectorConstruction.hh"
 
-DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
+DetectorConstruction::DetectorConstruction()
 {
 }
 
@@ -25,25 +25,28 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMaterial, "LogicWorld");
   G4VPhysicalVolume *physWorld = new G4PVPlacement{0, G4ThreeVector(0, 0, 0), logicWorld, "PhysWorld", nullptr, false, 0, true};
 
+  auto tileAttr = new G4VisAttributes(G4Color(192, 192, 192, 1.)); // серый цвет
+  tileAttr->SetForceSolid(true);
+
   // **************** Тайл 1 **************** //
-  G4Trap *solidTrap = new G4Trap("SolidBox",
-                                 0.5 * cm,      // половина длинны по оси Z
-                                 0,             // угол тетта оси Z относительно глобальной оси координат
-                                 0,             // угол phi оси Z относителтно глобальной оси координат
-                                 5.47 / 2 * cm, // половина длинны по оси Y на нижней грани
-                                 0.895 * cm,    // половина длин трапеции по оси X1 на нижней грани
-                                 1.983 * cm,    // половина длинны трапеции по оси Х2 на нижней грани
-                                 0,
-                                 5.47 / 2 * cm,
-                                 0.895 * cm,
-                                 1.983 * cm,
-                                 0);
+  G4Trap *solidTrap1 = new G4Trap("SolidBox",
+                                  0.5 * cm,      // половина длинны по оси Z
+                                  0,             // угол тетта оси Z относительно глобальной оси координат
+                                  0,             // угол phi оси Z относителтно глобальной оси координат
+                                  5.47 / 2 * cm, // половина длинны по оси Y на нижней грани
+                                  0.895 * cm,    // половина длин трапеции по оси X1 на нижней грани
+                                  1.983 * cm,    // половина длинны трапеции по оси Х2 на нижней грани
+                                  0,
+                                  5.47 / 2 * cm,
+                                  0.895 * cm,
+                                  1.983 * cm,
+                                  0);
 
   // определяем геометрию отверстия под крепление тайла
   G4Tubs *tubseForKrep = new G4Tubs("tubseForKrep", // "название",
                                     0.0 * cm,       // начальный радиус,
                                     0.125 * cm,     // конечный радиус,
-                                    0.5 * cm,       // Высота/2,
+                                    0.5 * 2 * cm,   // Высота/2,
                                     0 * deg,        // начальный угол,
                                     360 * deg       // угол охвата
   );
@@ -64,13 +67,14 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4ThreeVector translation15(0 * cm, (1.1005) * cm, -0.3 * cm);
 
   // вычитаем цилиндр из трапеции
-  G4SubtractionSolid *s11 = new G4SubtractionSolid("1.1", solidTrap, tubseForKrep, nullptr, translation11);
+  G4SubtractionSolid *s11 = new G4SubtractionSolid("1.1", solidTrap1, tubseForKrep, nullptr, translation11);
   G4SubtractionSolid *s12 = new G4SubtractionSolid("1.2", s11, tubseForKrep, nullptr, translation12);
   G4SubtractionSolid *s13 = new G4SubtractionSolid("1.3", s12, tubseForKrep, nullptr, translation13);
   G4SubtractionSolid *s14 = new G4SubtractionSolid("1.4", s13, tubseForKrep, nullptr, translation14);
   G4SubtractionSolid *solidTile1 = new G4SubtractionSolid("solidTile1", s14, tubseForShift, nullptr, translation15);
 
   auto logicTile1 = new G4LogicalVolume(solidTile1, plastic, "logicTile1");
+  logicTile1->SetVisAttributes(tileAttr);
   // **************************************** //
 
   // **************** Тайл 2 **************** //
@@ -108,6 +112,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4SubtractionSolid *solidTile2 = new G4SubtractionSolid("solidTile2", s24, tubseForShift2, nullptr, translation25);
 
   auto logicTile2 = new G4LogicalVolume(solidTile2, plastic, "logicTile2");
+  logicTile2->SetVisAttributes(tileAttr);
   // **************************************** //
 
   // **************** Тайл 3 **************** //
@@ -140,7 +145,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4ThreeVector translation311(-(1.4345 + 0.33 + 0.03) * cm, 0.816 * cm, -0.3 * cm);
 
   G4Box *solidBox2 = new G4Box("SolidBox2", 0.03 * cm, 5.561 * cm, 1 * cm);
-  G4Tubs *TubseForShift3 = new G4Tubs("TubseForShift3",              // "название",
+  G4Tubs *tubseForShift3 = new G4Tubs("tubseForShift3",              // "название",
                                       (2.869 / 2) * cm,              // начальный радиус,
                                       ((2.869 + 0.16 * 2) / 2) * cm, // конечный радиус,
                                       0.35 * cm,                     // Высота/2,
@@ -157,10 +162,11 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4SubtractionSolid *s37 = new G4SubtractionSolid("3.7", s36, tubseForKrep, nullptr, translation37);
   G4SubtractionSolid *s38 = new G4SubtractionSolid("3.8", s37, tubseForKrep, nullptr, translation38);
   G4SubtractionSolid *s39 = new G4SubtractionSolid("3.9", s38, tubseForKrep, nullptr, translation39);
-  G4SubtractionSolid *s310 = new G4SubtractionSolid("3.10", s39, TubseForShift3, nullptr, translation310);
-  G4SubtractionSolid *solidTile3 = new G4SubtractionSolid("solidTile3", s310, TubseForShift3, nullptr, translation311);
+  G4SubtractionSolid *s310 = new G4SubtractionSolid("3.10", s39, tubseForShift3, nullptr, translation310);
+  G4SubtractionSolid *solidTile3 = new G4SubtractionSolid("solidTile3", s310, tubseForShift3, nullptr, translation311);
 
   auto logicTile3 = new G4LogicalVolume(solidTile3, plastic, "logicTile3");
+  logicTile3->SetVisAttributes(tileAttr);
   // **************************************** //
 
   // **************** Тайл 4 **************** //
@@ -273,6 +279,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4SubtractionSolid *solidTile4 = new G4SubtractionSolid("solidTile4", s416, prism_2, nullptr, translation417);
 
   auto logicTile4 = new G4LogicalVolume(solidTile4, plastic, "logicTile4");
+  logicTile4->SetVisAttributes(tileAttr);
   // **************************************** //
 
   // **************** Тайл 5 **************** //
@@ -356,7 +363,14 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4SubtractionSolid *solidTile5 = new G4SubtractionSolid("solidTile5", s516, prism_5, nullptr, translation517);
 
   auto logicTile5 = new G4LogicalVolume(solidTile5, plastic, "logicTile5");
+  logicTile5->SetVisAttributes(tileAttr);
   // **************************************** //
+
+  logicDetector1 = logicTile1;
+  logicDetector2 = logicTile2;
+  logicDetector3 = logicTile3;
+  logicDetector4 = logicTile4;
+  logicDetector5 = logicTile5;
 
   G4int sectors_num = 16;
   G4double r1 = 73.35 * mm;
@@ -364,16 +378,40 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4double r3 = r2 + 55.6 * mm + 1 * mm;
   G4double r4 = r3 + 55.6 * mm + 1 * mm;
   G4double r5 = r4 + 55.6 * mm + 1 * mm;
+  G4double z = 1716. * mm;
   for (G4int i = 0; i < sectors_num; i++)
   {
     auto rotm = new G4RotationMatrix();
     rotm->rotateZ((22.5 * i) * deg);
-    auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(r1 * sin(22.5 * PI / 180 * i) * mm, r1 * cos(22.5 * PI / 180 * i) * mm, 0), logicTile1, "physTile1", logicWorld, false, i, checkOverlaps);
-    auto physTile2 = new G4PVPlacement(rotm, G4ThreeVector(r2 * sin(22.5 * PI / 180 * i) * mm, r2 * cos(22.5 * PI / 180 * i) * mm, 0), logicTile2, "physTile2", logicWorld, false, i, checkOverlaps);
-    auto physTile3 = new G4PVPlacement(rotm, G4ThreeVector(r3 * sin(22.5 * PI / 180 * i) * mm, r3 * cos(22.5 * PI / 180 * i) * mm, 0), logicTile3, "physTile3", logicWorld, false, i, checkOverlaps);
-    auto physTile4 = new G4PVPlacement(rotm, G4ThreeVector(r4 * sin(22.5 * PI / 180 * i) * mm, r4 * cos(22.5 * PI / 180 * i) * mm, 0), logicTile4, "physTile4", logicWorld, false, i, checkOverlaps);
-    auto physTile5 = new G4PVPlacement(rotm, G4ThreeVector(r5 * sin(22.5 * PI / 180 * i) * mm, r5 * cos(22.5 * PI / 180 * i) * mm, 0), logicTile5, "physTile5", logicWorld, false, i, checkOverlaps);
+    auto physTile1 = new G4PVPlacement(rotm, G4ThreeVector(r1 * sin(22.5 * PI / 180 * i) * mm, r1 * cos(22.5 * PI / 180 * i) * mm, z), logicTile1, "physTile1", logicWorld, false, i, checkOverlaps);
+    auto physTile2 = new G4PVPlacement(rotm, G4ThreeVector(r2 * sin(22.5 * PI / 180 * i) * mm, r2 * cos(22.5 * PI / 180 * i) * mm, z), logicTile2, "physTile2", logicWorld, false, i, checkOverlaps);
+    auto physTile3 = new G4PVPlacement(rotm, G4ThreeVector(r3 * sin(22.5 * PI / 180 * i) * mm, r3 * cos(22.5 * PI / 180 * i) * mm, z), logicTile3, "physTile3", logicWorld, false, i, checkOverlaps);
+    auto physTile4 = new G4PVPlacement(rotm, G4ThreeVector(r4 * sin(22.5 * PI / 180 * i) * mm, r4 * cos(22.5 * PI / 180 * i) * mm, z), logicTile4, "physTile4", logicWorld, false, i, checkOverlaps);
+    auto physTile5 = new G4PVPlacement(rotm, G4ThreeVector(r5 * sin(22.5 * PI / 180 * i) * mm, r5 * cos(22.5 * PI / 180 * i) * mm, z), logicTile5, "physTile5", logicWorld, false, i, checkOverlaps);
   }
 
   return physWorld;
+}
+
+void DetectorConstruction::ConstructSDandField()
+{
+  auto sensDet1 = new SensitiveDetector("SensitiveDetector1");
+  logicDetector1->SetSensitiveDetector(sensDet1);
+  G4SDManager::GetSDMpointer()->AddNewDetector(sensDet1);
+
+  auto sensDet2 = new SensitiveDetector("SensitiveDetector2");
+  logicDetector2->SetSensitiveDetector(sensDet2);
+  G4SDManager::GetSDMpointer()->AddNewDetector(sensDet2);
+
+  auto sensDet3 = new SensitiveDetector("SensitiveDetector3");
+  logicDetector3->SetSensitiveDetector(sensDet3);
+  G4SDManager::GetSDMpointer()->AddNewDetector(sensDet3);
+
+  auto sensDet4 = new SensitiveDetector("SensitiveDetector4");
+  logicDetector4->SetSensitiveDetector(sensDet4);
+  G4SDManager::GetSDMpointer()->AddNewDetector(sensDet4);
+
+  auto sensDet5 = new SensitiveDetector("SensitiveDetector5");
+  logicDetector5->SetSensitiveDetector(sensDet5);
+  G4SDManager::GetSDMpointer()->AddNewDetector(sensDet5);
 }

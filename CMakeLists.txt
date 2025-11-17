@@ -8,7 +8,9 @@ if(WITH_GEANT4_UIVIS)
     find_package(Geant4 REQUIRED ui_all vis_all)
 else()
     find_package(Geant4 REQUIRED)
-endif() 
+endif()
+
+find_package(HepMC3 REQUIRED)
 
 include(${Geant4_USE_FILE}) 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -20,4 +22,4 @@ file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh) 
  
 add_executable(${NAME} BBC.cc ${sources} ${headers})
-target_link_libraries(${NAME} ${Geant4_LIBRARIES})
+target_link_libraries(${NAME} ${Geant4_LIBRARIES} "HepMC3::HepMC3")

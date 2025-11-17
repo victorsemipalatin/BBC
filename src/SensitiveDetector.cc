@@ -29,7 +29,7 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *)
 
 G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
-    auto analysisManager = G4AnalysisManager::Instance();
+    // auto analysisManager = G4AnalysisManager::Instance();
     auto track = aStep->GetTrack();
     auto creatorProcessPtr = track->GetCreatorProcess();
     G4String creatorProcess = creatorProcessPtr ? creatorProcessPtr->GetProcessName() : "primary";
@@ -54,18 +54,18 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     // **************************************** //
 
     // ********** Тестирование тайла  ********** //
-    if (aStep->GetTrack()->GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
-    {
-        if (aStep->IsFirstStepInVolume())
-        {
-            auto trackID = track->GetTrackID();
-            if (countedTracks.find(trackID) == countedTracks.end())
-            {
-                countedTracks.insert(trackID);
-                count += 1.;
-            }
-        }
-    }
+    // if (aStep->GetTrack()->GetParticleDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
+    // {
+    //     if (aStep->IsFirstStepInVolume())
+    //     {
+    //         auto trackID = track->GetTrackID();
+    //         if (countedTracks.find(trackID) == countedTracks.end())
+    //         {
+    //             countedTracks.insert(trackID);
+    //             count += 1.;
+    //         }
+    //     }
+    // }
     // **************************************** //
 
     // *********** Энерговыделение *********** //
@@ -111,12 +111,26 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     //     }
     // **************************************** //
 
+    // **************** Загрузки *************** //
+
+    if (aStep->IsFirstStepInVolume())
+    {
+        auto trackID = track->GetTrackID();
+        if (countedTracks.find(trackID) == countedTracks.end())
+        {
+            countedTracks.insert(trackID);
+            count += 1.;
+        }
+    }
+
+    // **************************************** //
+
     return true;
 }
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *)
 {
-    auto analysisManager = G4AnalysisManager::Instance();
+    // auto analysisManager = G4AnalysisManager::Instance();
     // for(int i = 0; i < 80; i++)
     //     analysisManager -> FillH1(2 + i, count[i]);
 

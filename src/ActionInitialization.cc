@@ -18,5 +18,9 @@ void ActionInitialization::Build() const
 {
     SetUserAction(new PrimaryGenerator());
     SetUserAction(new RunAction());
-    SetUserAction(new EventAction());
+    auto eventAction = new EventAction();
+    SetUserAction(eventAction);
+    SetUserAction(new SteppingAction(eventAction));
+
+    
 }

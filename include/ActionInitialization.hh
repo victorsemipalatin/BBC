@@ -2,10 +2,11 @@
 #define ACTIONINITIALIZATION_HH
 
 #include "G4VUserActionInitialization.hh"
-#include "Generator.hh"
-// #include "GeneratorPythia.hh"
+// #include "Generator.hh"
+#include "GeneratorPythia.hh"
 #include "RunAction.hh"
 #include "EventAction.hh"
+#include "SteppingAction.hh"
 
 class ActionInitialization : public G4VUserActionInitialization
 {

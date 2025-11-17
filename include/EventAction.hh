@@ -23,7 +23,16 @@ public:
     void BeginOfEventAction(const G4Event *) override;
     void EndOfEventAction(const G4Event *) override;
 
+    void SetLastParticleTime(G4double t)
+    {
+        if (t > fLastParticleTime)
+            fLastParticleTime = t;
+    }
+    G4double GetLastParticleTime() const { return fLastParticleTime; }
+
 private:
+    G4double fEventStartTime;
+    G4double fLastParticleTime;
     G4String fOutputFileName;
 };
 
