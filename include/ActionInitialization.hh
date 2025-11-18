@@ -6,7 +6,6 @@
 #include "GeneratorPythia.hh"
 #include "RunAction.hh"
 #include "EventAction.hh"
-#include "SteppingAction.hh"
 
 class ActionInitialization : public G4VUserActionInitialization
 {

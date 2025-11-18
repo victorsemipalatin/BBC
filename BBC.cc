@@ -15,11 +15,11 @@ int main(int argc, char **argv)
 {
     G4UIExecutive *ui;
 
-#ifdef G4MULTITHREADED
-    G4RunManager *runManager = new G4MTRunManager;
-#else
+// #ifdef G4MULTITHREADED
+    // G4RunManager *runManager = new G4MTRunManager;
+// #else
     G4RunManager *runManager = new G4RunManager;
-#endif
+// #endif
 
     // runManager -> SetUserInitialization(new BBCConstruction());
     runManager->SetUserInitialization(new DetectorConstruction());

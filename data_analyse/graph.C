@@ -313,3 +313,28 @@ void loadings()
     h1->GetYaxis()->SetTitle("Counts");
     c1->SaveAs("loadings.png");
 }
+
+void Loadings()
+{
+    TFile *inputFile = new TFile("output_1_loadings.root", "READ");
+    TH1D *h = (TH1D *)inputFile->Get("Loadings stats");
+
+    TCanvas *c1 = new TCanvas("c1", "Photons number per event distribution", 2426, 1433);
+    h->SetLineColor(kRed);
+    h->SetLineWidth(2);
+    h->SetFillColor(kYellow);
+    h->SetFillStyle(3003);
+    h->SetMarkerStyle(20);
+    h->SetMarkerColor(kBlue);
+
+    h->SetTitle("Loadings distribution");
+    h->GetXaxis()->SetTitle("Loadings, MHz");
+    h->GetYaxis()->SetTitle("Count");
+    h->SetStats(1);
+    h->Draw();
+
+    gStyle->SetOptStat("nemri");
+
+    c1->SetGrid();
+    c1->SaveAs("loadings.png");
+}

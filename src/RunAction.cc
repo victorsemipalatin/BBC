@@ -24,11 +24,11 @@ void RunAction::BeginOfRunAction(const G4Run *run)
     // analysisManager -> CreateH1("CherenkovCount", "CherenkovCount", 100, 3600., 9400.);
     // analysisManager -> CreateH1("CherenkovEnergy", "CherenkovEnergy", 100, 1.2, 6.4);
     // analysisManager -> CreateH1("Photons Deposited Energy", "photDep", 100, 0, 10000);
-    // analysisManager -> CreateH1("Electrons Deposited Energy", "elDep", 100, 0, 10);
+    // analysisManager -> CreateH1("Electrons Deposited Energy", "fElDep", 100, 0, 10);
     // analysisManager -> CreateH1("Energy", "edep", 100, 0, 100);
 
     // *********** Энерговыделение *********** //
-    // analysisManager -> CreateH1("Electrons Deposited Energy", "elDep", 100, 0.01, 16);
+    // analysisManager -> CreateH1("Electrons Deposited Energy", "fElDep", 100, 0.01, 16);
     // **************************************** //
 
     // ********* Разлёт гамма-квантов ********* //
@@ -38,6 +38,15 @@ void RunAction::BeginOfRunAction(const G4Run *run)
     // analysisManager -> CreateH1("front", "front", 3, 0, 2);
     // analysisManager -> CreateH1("bottom", "bottom", 3, 0, 2);
     // analysisManager -> CreateH1("top", "top", 3, 0, 2);
+    // **************************************** //
+
+    // **************** Загрузки *************** //
+    analysisManager->CreateH1("Loadings stats", "Loadings", 100, 0, 1);
+    time_t now = time(nullptr);
+    tm *ltm = localtime(&now);
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "loadings", ltm);
+    analysisManager->OpenFile("/home/e/BBC/data_analyse/data/root/output_1_" + std::string(buffer) + ".root");
     // **************************************** //
 
     // time_t now = time(nullptr);

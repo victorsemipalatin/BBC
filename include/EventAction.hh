@@ -7,7 +7,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
 #include "SensitiveDetector.hh"
-#include "RunAction.hh"
+#include "G4AnalysisManager.hh"
 // #include "BBCConstruction.hh"
 #include "DetectorConstruction.hh"
 
@@ -22,13 +22,6 @@ public:
 
     void BeginOfEventAction(const G4Event *) override;
     void EndOfEventAction(const G4Event *) override;
-
-    void SetLastParticleTime(G4double t)
-    {
-        if (t > fLastParticleTime)
-            fLastParticleTime = t;
-    }
-    G4double GetLastParticleTime() const { return fLastParticleTime; }
 
 private:
     G4double fEventStartTime;

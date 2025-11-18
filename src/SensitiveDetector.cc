@@ -1,14 +1,11 @@
 #include "SensitiveDetector.hh"
 
-G4ThreadLocal G4double SensitiveDetector::count = 0.;
+G4double SensitiveDetector::fParticlesCount = 0.;
+G4double SensitiveDetector::fMinTime = 100000.;
+G4double SensitiveDetector::fMaxTime = -1.;
 
 SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name)
 {
-    fTotalEnergyDeposited = 0.;
-    photonsEnergy = 0.;
-    // cerenkovCount = 0.;
-    elDep = 0;
-    photDep = 0;
 }
 
 SensitiveDetector::~SensitiveDetector()
@@ -19,12 +16,12 @@ SensitiveDetector::~SensitiveDetector()
 void SensitiveDetector::Initialize(G4HCofThisEvent *)
 {
     fTotalEnergyDeposited = 0.;
-    count = 0.;
-    photonsEnergy = 0.;
-    elDep = 0;
+    fPhotonsEnergy = 0.;
+    fElDep = 0;
     photDep = 0;
     check = 0;
-    countedTracks.clear();
+    fCountedTracks.clear();
+    fParticlesCount = 0.;
 }
 
 G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
@@ -46,9 +43,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     //         //     photDep += energyDeposited;
     //         // }
     //         // count += 1;
-    //         photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
-    //         // analysisManager -> FillH1(1, photonsEnergy / eV);
-    //         analysisManager -> FillH1(2, 2 * 3.14 * 1.05e-34 * 3e8  / (photonsEnergy / eV) / 1.6 * 1e28);
+    //         fPhotonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+    //         // analysisManager -> FillH1(1, fPhotonsEnergy / eV);
+    //         analysisManager -> FillH1(2, 2 * 3.14 * 1.05e-34 * 3e8  / (fPhotonsEnergy / eV) / 1.6 * 1e28);
     //     }
     // }
     // **************************************** //
@@ -59,9 +56,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     //     if (aStep->IsFirstStepInVolume())
     //     {
     //         auto trackID = track->GetTrackID();
-    //         if (countedTracks.find(trackID) == countedTracks.end())
+    //         if (fCountedTracks.find(trackID) == fCountedTracks.end())
     //         {
-    //             countedTracks.insert(trackID);
+    //             fCountedTracks.insert(trackID);
     //             count += 1.;
     //         }
     //     }
@@ -80,11 +77,11 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     // if(aStep -> GetTrack() -> GetParticleDefinition() == G4Electron::ElectronDefinition()){
     //     G4double energyDeposited = aStep -> GetTotalEnergyDeposit();
     //     if (energyDeposited > 0){
-    //         elDep += energyDeposited;
+    //         fElDep += energyDeposited;
     //         // if (track -> GetCreatorProcess() -> GetProcessName() == "phot")
-    //         //     G4cout << elDep / keV << " phot" << G4endl;
+    //         //     G4cout << fElDep / keV << " phot" << G4endl;
     //         // else
-    //         //     G4cout << elDep / keV << " compt" << G4endl;
+    //         //     G4cout << fElDep / keV << " compt" << G4endl;
     //     }
     // }
     // **************************************** //
@@ -95,15 +92,15 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     // G4int number = aStep -> GetPreStepPoint() -> GetTouchableHandle() -> GetCopyNumber();
     // if (creatorProcess == "primary")
     //     if (volumeName != "physTile1"){
-    //         // photonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
+    //         // fPhotonsEnergy = aStep -> GetTrack() -> GetKineticEnergy();
     //         // analysisManager -> FillH1(number, 1);
     //         // if (number == 0 || number == 1)
-    //             // analysisManager -> FillH1(6, photonsEnergy / keV);
+    //             // analysisManager -> FillH1(6, fPhotonsEnergy / keV);
     //         if ((number == 0 || number == 1) && aStep -> IsFirstStepInVolume() && track -> GetParentID() == 0){
     //             if (track -> GetParentID() == 0 && aStep -> IsFirstStepInVolume()){
     //                 auto trackID = track -> GetTrackID();
-    //                 if (countedTracks.find(trackID) == countedTracks.end()) {
-    //                     countedTracks.insert(trackID);
+    //                 if (fCountedTracks.find(trackID) == fCountedTracks.end()) {
+    //                     fCountedTracks.insert(trackID);
     //                     count += 1.;
     //                 }
     //             }
@@ -112,17 +109,25 @@ G4bool SensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
     // **************************************** //
 
     // **************** Загрузки *************** //
-
     if (aStep->IsFirstStepInVolume())
     {
         auto trackID = track->GetTrackID();
-        if (countedTracks.find(trackID) == countedTracks.end())
+        if (fCountedTracks.find(trackID) == fCountedTracks.end())
         {
-            countedTracks.insert(trackID);
-            count += 1.;
+            // G4double time = aStep->GetPreStepPoint()->GetGlobalTime();
+            // if (time < fMinTime)
+            //     fMinTime = time;
+            // if (time > fMaxTime)
+            //     fMaxTime = time;
+            fParticlesCount++;
+            fCountedTracks.insert(trackID);
         }
     }
-
+    G4double time = aStep->GetPreStepPoint()->GetGlobalTime();
+    if (time < fMinTime)
+        fMinTime = time;
+    if (time > fMaxTime)
+        fMaxTime = time;
     // **************************************** //
 
     return true;
@@ -137,10 +142,10 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent *)
     // analysisManager -> FillH1(0, count);
     // analysisManager -> FillH1(2, cerenkovCount);
     // analysisManager -> FillH1(4, photDep / eV);
-    // analysisManager -> FillH1(5, elDep / keV);
+    // analysisManager -> FillH1(5, fElDep / keV);
 
     // *********** Энерговыделение *********** //
-    // analysisManager -> FillH1(0, elDep / keV);
+    // analysisManager -> FillH1(0, fElDep / keV);
     // **************************************** //
 
     // ********* Разлёт гамма-квантов ********* //
